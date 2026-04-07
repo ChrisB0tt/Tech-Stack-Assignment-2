@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - SkillHub</title>
+  <link rel="stylesheet" href="/styles/globals.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav id="main-nav" class="sticky top-0 z-50 backdrop-blur-md border-b-2 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">SkillHub</h1>
+          <p class="text-xs opacity-80">Learn Together</p>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex gap-2" id="nav-links">
+        <a href="/index.html" class="nav-link px-4 py-2 rounded-xl transition-all">Home</a>
+        <a href="/resources.html" class="nav-link px-4 py-2 rounded-xl transition-all">Browse Resources</a>
+        <a href="/about.html" class="nav-link px-4 py-2 rounded-xl transition-all">About</a>
+        <a href="/contact.html" class="nav-link px-4 py-2 rounded-xl transition-all">Contact</a>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="profile-btn" class="hidden px-4 py-2 rounded-xl transition-all">Profile</button>
+        <button id="login-btn" class="px-4 py-2 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">Login</button>
+        <button id="logout-btn" class="hidden px-4 py-2 rounded-xl transition-all">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+      <!-- Hero Section -->
+      <section class="text-center py-16">
+        <h1 class="text-5xl mb-6">About <span style="color: var(--theme-color);">SkillHub</span></h1>
+        <p class="text-xl opacity-90">Building a Better Learning Community Together</p>
+      </section>
+
+      <!-- Mission Section -->
+      <section class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-8">
+        <h2 class="text-3xl mb-6">Our Mission</h2>
+        <p class="text-lg opacity-90 mb-4">
+          SkillHub is dedicated to democratizing education and fostering a vibrant community where knowledge flows freely. 
+          We believe that everyone has something valuable to teach and everyone has something new to learn.
+        </p>
+        <p class="text-lg opacity-90">
+          Our platform connects learners with resources, mentors with students, and creates opportunities for 
+          collaborative growth in a supportive environment.
+        </p>
+      </section>
+
+      <!-- Values Section -->
+      <section class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-8">
+        <h2 class="text-3xl mb-6">Our Values</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl mb-3" style="color: var(--theme-color);">Community First</h3>
+            <p class="opacity-80">We prioritize building meaningful connections and fostering a supportive learning environment where everyone feels welcome.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-3" style="color: var(--theme-color);">Quality Content</h3>
+            <p class="opacity-80">We maintain high standards for resources through community ratings and reviews, ensuring valuable learning experiences.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-3" style="color: var(--theme-color);">Accessibility</h3>
+            <p class="opacity-80">We're committed to making learning accessible to everyone with features like multi-language support and accessibility options.</p>
+          </div>
+          <div>
+            <h3 class="text-xl mb-3" style="color: var(--theme-color);">Continuous Growth</h3>
+            <p class="opacity-80">We believe in lifelong learning and constantly evolve our platform based on community feedback and needs.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-8">
+        <h2 class="text-3xl mb-6">How It Works</h2>
+        <div class="space-y-6">
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl" style="background: var(--theme-color);">1</div>
+            <div>
+              <h3 class="text-xl mb-2">Create Your Account</h3>
+              <p class="opacity-80">Sign up and customize your profile with your learning interests and skills you can share.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl" style="background: var(--theme-color);">2</div>
+            <div>
+              <h3 class="text-xl mb-2">Explore Resources</h3>
+              <p class="opacity-80">Browse our curated library of learning materials across various categories and skill levels.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl" style="background: var(--theme-color);">3</div>
+            <div>
+              <h3 class="text-xl mb-2">Share & Connect</h3>
+              <p class="opacity-80">Contribute your own resources, request specific training, and connect with fellow learners.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white text-xl" style="background: var(--theme-color);">4</div>
+            <div>
+              <h3 class="text-xl mb-2">Grow Together</h3>
+              <p class="opacity-80">Rate resources, leave feedback, and help build a quality learning ecosystem for everyone.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-8 text-center">
+        <h2 class="text-3xl mb-8">Our Impact</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);" id="about-resources-count">0</div>
+            <div class="text-lg opacity-80">Learning Resources</div>
+          </div>
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);">500+</div>
+            <div class="text-lg opacity-80">Community Members</div>
+          </div>
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);">50+</div>
+            <div class="text-lg opacity-80">Skills Categories</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="text-center py-8">
+        <h2 class="text-3xl mb-6">Ready to Start Learning?</h2>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/login.html" class="px-8 py-4 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+            Join SkillHub
+          </a>
+          <a href="/resources.html" class="px-8 py-4 rounded-xl border-2 transition-all hover:scale-105">
+            Browse Resources
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t-2 mt-16 py-8">
+    <div class="container mx-auto px-4">
+      <div class="text-center pt-8 opacity-60">
+        <p>&copy; 2026 SkillHub. Learn Together. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+  <script>
+    // Update resource count
+    const resourceCount = document.getElementById('about-resources-count');
+    if (resourceCount && window.skillHubApp) {
+      resourceCount.textContent = window.skillHubApp.resources.length;
+    }
+  </script>
+</body>
+</html>

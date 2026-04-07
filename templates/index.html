@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillHub - Learn Together</title>
+  <link rel="stylesheet" href="/styles/globals.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen transition-colors duration-300">
+  <!-- Navigation -->
+  <nav id="main-nav" class="sticky top-0 z-50 backdrop-blur-md border-b-2 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">SkillHub</h1>
+          <p class="text-xs opacity-80">Learn Together</p>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex gap-2" id="nav-links">
+        <a href="/index.html" class="nav-link px-4 py-2 rounded-xl transition-all">Home</a>
+        <a href="/resources.html" class="nav-link px-4 py-2 rounded-xl transition-all">Browse Resources</a>
+        <a href="/about.html" class="nav-link px-4 py-2 rounded-xl transition-all">About</a>
+        <a href="/contact.html" class="nav-link px-4 py-2 rounded-xl transition-all">Contact</a>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="profile-btn" class="hidden px-4 py-2 rounded-xl transition-all">Profile</button>
+        <button id="login-btn" class="px-4 py-2 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">Login</button>
+        <button id="logout-btn" class="hidden px-4 py-2 rounded-xl transition-all">Logout</button>
+        <button id="mobile-menu-btn" class="md:hidden p-2">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <section class="text-center py-16 relative">
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <div class="absolute bottom-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+      </div>
+      
+      <h1 class="text-5xl md:text-7xl mb-6 relative z-10">Welcome to <span style="color: var(--theme-color);">SkillHub</span></h1>
+      <p class="text-xl md:text-2xl mb-8 opacity-90 relative z-10">Your Community-Powered Learning Platform</p>
+      <p class="text-lg mb-12 max-w-2xl mx-auto opacity-80 relative z-10">
+        Connect with learners, share resources, and grow together in a vibrant community dedicated to skill development and knowledge exchange.
+      </p>
+      
+      <div class="flex flex-wrap gap-4 justify-center relative z-10">
+        <a href="/resources.html" class="px-8 py-4 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          Explore Resources
+        </a>
+        <a href="/login.html" class="px-8 py-4 rounded-xl border-2 transition-all hover:scale-105">
+          Join Community
+        </a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16">
+      <h2 class="text-3xl text-center mb-12">Why Choose SkillHub?</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="backdrop-blur-md rounded-2xl border-2 shadow-lg p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white" style="background: var(--theme-color);">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl mb-3">Curated Resources</h3>
+          <p class="opacity-80">Access a vast library of learning materials across multiple categories, all community-vetted.</p>
+        </div>
+        
+        <div class="backdrop-blur-md rounded-2xl border-2 shadow-lg p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white" style="background: var(--theme-color);">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl mb-3">Community Driven</h3>
+          <p class="opacity-80">Connect with fellow learners, request specific training, and share your expertise.</p>
+        </div>
+        
+        <div class="backdrop-blur-md rounded-2xl border-2 shadow-lg p-6 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white" style="background: var(--theme-color);">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl mb-3">Quality Assured</h3>
+          <p class="opacity-80">Rate and review resources to help maintain high-quality content for everyone.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 text-center">
+      <div class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-12">
+        <h2 class="text-3xl mb-12">Join Our Growing Community</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);" id="resources-count">0</div>
+            <div class="text-lg opacity-80">Resources Shared</div>
+          </div>
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);">500+</div>
+            <div class="text-lg opacity-80">Active Learners</div>
+          </div>
+          <div>
+            <div class="text-5xl mb-2" style="color: var(--theme-color);">50+</div>
+            <div class="text-lg opacity-80">Skill Categories</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t-2 mt-16 py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8 mb-8">
+        <div>
+          <h3 class="text-xl mb-4">SkillHub</h3>
+          <p class="opacity-80">Empowering communities through shared knowledge and collaborative learning.</p>
+        </div>
+        <div>
+          <h4 class="mb-4">Quick Links</h4>
+          <ul class="space-y-2 opacity-80">
+            <li><a href="/index.html" class="hover:opacity-100">Home</a></li>
+            <li><a href="/resources.html" class="hover:opacity-100">Resources</a></li>
+            <li><a href="/about.html" class="hover:opacity-100">About</a></li>
+            <li><a href="/contact.html" class="hover:opacity-100">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="mb-4">Settings</h4>
+          <ul class="space-y-2 opacity-80">
+            <li><a href="/settings.html" class="hover:opacity-100">Preferences</a></li>
+            <li><a href="/login.html" class="hover:opacity-100">Login</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center pt-8 border-t opacity-60">
+        <p>&copy; 2026 SkillHub. Learn Together. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

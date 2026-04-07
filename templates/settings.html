@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - SkillHub</title>
+  <link rel="stylesheet" href="/styles/globals.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav id="main-nav" class="sticky top-0 z-50 backdrop-blur-md border-b-2 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">SkillHub</h1>
+          <p class="text-xs opacity-80">Learn Together</p>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex gap-2" id="nav-links">
+        <a href="/index.html" class="nav-link px-4 py-2 rounded-xl transition-all">Home</a>
+        <a href="/resources.html" class="nav-link px-4 py-2 rounded-xl transition-all">Browse Resources</a>
+        <a href="/about.html" class="nav-link px-4 py-2 rounded-xl transition-all">About</a>
+        <a href="/contact.html" class="nav-link px-4 py-2 rounded-xl transition-all">Contact</a>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="profile-btn" class="hidden px-4 py-2 rounded-xl transition-all">Profile</button>
+        <button id="login-btn" class="px-4 py-2 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">Login</button>
+        <button id="logout-btn" class="hidden px-4 py-2 rounded-xl transition-all">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-4xl mb-8">Settings</h1>
+
+      <!-- Theme Settings -->
+      <div class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-6">
+        <h2 class="text-2xl mb-6">Appearance</h2>
+        
+        <div class="space-y-6">
+          <!-- Dark Mode Toggle -->
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-lg mb-1">Dark Mode</h3>
+              <p class="text-sm opacity-80">Switch between light and dark themes</p>
+            </div>
+            <label class="relative inline-block w-14 h-8">
+              <input type="checkbox" id="dark-mode-toggle" class="sr-only">
+              <span class="slider absolute cursor-pointer inset-0 rounded-full transition-all"></span>
+            </label>
+          </div>
+
+          <!-- Theme Color -->
+          <div>
+            <h3 class="text-lg mb-3">Theme Color</h3>
+            <div class="flex gap-3 flex-wrap">
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#06b6d4" style="background: #06b6d4;"></button>
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#8b5cf6" style="background: #8b5cf6;"></button>
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#ec4899" style="background: #ec4899;"></button>
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#f59e0b" style="background: #f59e0b;"></button>
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#10b981" style="background: #10b981;"></button>
+              <button class="color-option w-12 h-12 rounded-full transition-all hover:scale-110 border-4" data-color="#ef4444" style="background: #ef4444;"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accessibility Settings -->
+      <div class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 mb-6">
+        <h2 class="text-2xl mb-6">Accessibility</h2>
+        
+        <div class="space-y-6">
+          <!-- Font Size -->
+          <div>
+            <h3 class="text-lg mb-3">Font Size</h3>
+            <select id="font-size-select" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none">
+              <option value="small">Small</option>
+              <option value="medium" selected>Medium (Default)</option>
+              <option value="large">Large</option>
+              <option value="extra-large">Extra Large</option>
+            </select>
+          </div>
+
+          <!-- Language -->
+          <div>
+            <h3 class="text-lg mb-3">Language</h3>
+            <select id="language-select" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none">
+              <option value="en" selected>English</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+              <option value="pt">Português</option>
+              <option value="zh">中文</option>
+              <option value="ja">日本語</option>
+              <option value="ar">العربية</option>
+            </select>
+          </div>
+
+          <!-- Dyslexia Font -->
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-lg mb-1">Dyslexia-Friendly Font</h3>
+              <p class="text-sm opacity-80">Use OpenDyslexic font for better readability</p>
+            </div>
+            <label class="relative inline-block w-14 h-8">
+              <input type="checkbox" id="dyslexia-toggle" class="sr-only">
+              <span class="slider absolute cursor-pointer inset-0 rounded-full transition-all"></span>
+            </label>
+          </div>
+
+          <!-- High Contrast -->
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-lg mb-1">High Contrast Mode</h3>
+              <p class="text-sm opacity-80">Increase contrast for better visibility</p>
+            </div>
+            <label class="relative inline-block w-14 h-8">
+              <input type="checkbox" id="high-contrast-toggle" class="sr-only">
+              <span class="slider absolute cursor-pointer inset-0 rounded-full transition-all"></span>
+            </label>
+          </div>
+
+          <!-- Reduce Motion -->
+          <div class="flex justify-between items-center">
+            <div>
+              <h3 class="text-lg mb-1">Reduce Motion</h3>
+              <p class="text-sm opacity-80">Minimize animations and transitions</p>
+            </div>
+            <label class="relative inline-block w-14 h-8">
+              <input type="checkbox" id="reduce-motion-toggle" class="sr-only">
+              <span class="slider absolute cursor-pointer inset-0 rounded-full transition-all"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <button 
+        id="save-settings-btn"
+        class="w-full py-3 rounded-xl text-white transition-all hover:scale-105 shadow-lg"
+        style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);"
+      >
+        Save Settings
+      </button>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+  <style>
+    /* Custom toggle switch styles */
+    .slider {
+      background-color: #ccc;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background: var(--theme-color);
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .color-option {
+      border-color: transparent;
+    }
+    .color-option.active {
+      border-color: var(--theme-color);
+      transform: scale(1.1);
+    }
+  </style>
+  <script>
+    // Load current settings
+    function loadSettings() {
+      const settings = window.skillHubApp.settings;
+      
+      // Dark mode
+      document.getElementById('dark-mode-toggle').checked = settings.darkMode;
+      
+      // Font size
+      document.getElementById('font-size-select').value = settings.fontSize;
+      
+      // Language
+      document.getElementById('language-select').value = settings.language;
+      
+      // Dyslexia font
+      document.getElementById('dyslexia-toggle').checked = settings.dyslexiaFont;
+      
+      // High contrast
+      document.getElementById('high-contrast-toggle').checked = settings.highContrast;
+      
+      // Reduce motion
+      document.getElementById('reduce-motion-toggle').checked = settings.reduceMotion;
+      
+      // Theme color - highlight active color
+      document.querySelectorAll('.color-option').forEach(btn => {
+        if (btn.dataset.color === settings.themeColor) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    // Dark mode toggle
+    document.getElementById('dark-mode-toggle').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ darkMode: e.target.checked });
+      updateInputStyles();
+    });
+
+    // Theme color selection
+    document.querySelectorAll('.color-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const color = btn.dataset.color;
+        window.skillHubApp.updateSettings({ themeColor: color });
+        loadSettings();
+      });
+    });
+
+    // Font size
+    document.getElementById('font-size-select').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ fontSize: e.target.value });
+    });
+
+    // Language
+    document.getElementById('language-select').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ language: e.target.value });
+    });
+
+    // Dyslexia font
+    document.getElementById('dyslexia-toggle').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ dyslexiaFont: e.target.checked });
+    });
+
+    // High contrast
+    document.getElementById('high-contrast-toggle').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ highContrast: e.target.checked });
+    });
+
+    // Reduce motion
+    document.getElementById('reduce-motion-toggle').addEventListener('change', (e) => {
+      window.skillHubApp.updateSettings({ reduceMotion: e.target.checked });
+    });
+
+    // Save button
+    document.getElementById('save-settings-btn').addEventListener('click', () => {
+      alert('Settings saved successfully!');
+    });
+
+    // Apply input styling based on theme
+    function updateInputStyles() {
+      const isDark = window.skillHubApp.settings.darkMode;
+      const inputs = document.querySelectorAll('input, select');
+      
+      inputs.forEach(input => {
+        if (input.type !== 'checkbox') {
+          if (isDark) {
+            input.classList.add('bg-gray-700/50', 'border-cyan-500/30', 'text-white', 'focus:border-cyan-500');
+            input.classList.remove('bg-white', 'border-cyan-200', 'focus:border-cyan-400');
+          } else {
+            input.classList.add('bg-white', 'border-cyan-200', 'focus:border-cyan-400');
+            input.classList.remove('bg-gray-700/50', 'border-cyan-500/30', 'text-white', 'focus:border-cyan-500');
+          }
+        }
+      });
+    }
+
+    // Initial load
+    loadSettings();
+    updateInputStyles();
+  </script>
+</body>
+</html>

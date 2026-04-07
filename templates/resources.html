@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Resources - SkillHub</title>
+  <link rel="stylesheet" href="/styles/globals.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen">
+  <!-- Navigation -->
+  <nav id="main-nav" class="sticky top-0 z-50 backdrop-blur-md border-b-2 shadow-lg">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">SkillHub</h1>
+          <p class="text-xs opacity-80">Learn Together</p>
+        </div>
+      </div>
+      
+      <div class="hidden md:flex gap-2" id="nav-links">
+        <a href="/index.html" class="nav-link px-4 py-2 rounded-xl transition-all">Home</a>
+        <a href="/resources.html" class="nav-link px-4 py-2 rounded-xl transition-all">Browse Resources</a>
+        <a href="/about.html" class="nav-link px-4 py-2 rounded-xl transition-all">About</a>
+        <a href="/contact.html" class="nav-link px-4 py-2 rounded-xl transition-all">Contact</a>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <button id="profile-btn" class="hidden px-4 py-2 rounded-xl transition-all">Profile</button>
+        <button id="login-btn" class="px-4 py-2 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">Login</button>
+        <button id="logout-btn" class="hidden px-4 py-2 rounded-xl transition-all">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl mb-8 text-center">Browse Resources</h1>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap gap-2 mb-8 justify-center">
+      <button class="tab-btn px-6 py-3 rounded-xl transition-all text-white shadow-lg" data-tab="all" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+        All Resources
+      </button>
+      <button class="tab-btn px-6 py-3 rounded-xl transition-all" data-tab="bookmarks">
+        My Bookmarks
+      </button>
+      <button class="tab-btn px-6 py-3 rounded-xl transition-all" data-tab="requests">
+        Training Requests
+      </button>
+      <button class="tab-btn px-6 py-3 rounded-xl transition-all" data-tab="add">
+        Add Resource
+      </button>
+    </div>
+
+    <!-- All Resources Tab -->
+    <div id="tab-all" class="tab-content">
+      <!-- Category Filter -->
+      <div class="mb-6">
+        <label class="block mb-2">Filter by Category:</label>
+        <select id="category-filter" class="px-4 py-2 border-2 rounded-xl">
+          <option value="All">All Categories</option>
+          <option value="Technology">Technology</option>
+          <option value="Arts">Arts</option>
+          <option value="Lifestyle">Lifestyle</option>
+          <option value="Business">Business</option>
+          <option value="Health">Health</option>
+          <option value="Education">Education</option>
+          <option value="AI Tools">AI Tools</option>
+        </select>
+      </div>
+
+      <!-- Resources Grid -->
+      <div id="resources-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Resources will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Bookmarks Tab -->
+    <div id="tab-bookmarks" class="tab-content hidden">
+      <div id="bookmarks-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Bookmarked resources will be inserted here -->
+      </div>
+      <div id="no-bookmarks" class="text-center py-12 hidden">
+        <p class="text-xl opacity-80">No bookmarks yet</p>
+        <p class="opacity-60 mt-2">Start bookmarking resources to see them here!</p>
+      </div>
+    </div>
+
+    <!-- Training Requests Tab -->
+    <div id="tab-requests" class="tab-content hidden">
+      <button id="add-request-btn" class="mb-6 px-6 py-3 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+        + New Request
+      </button>
+      <div id="requests-grid" class="space-y-4">
+        <!-- Training requests will be inserted here -->
+      </div>
+    </div>
+
+    <!-- Add Resource Tab -->
+    <div id="tab-add" class="tab-content hidden">
+      <div class="max-w-2xl mx-auto backdrop-blur-md rounded-2xl border-2 shadow-xl p-8">
+        <h2 class="text-2xl mb-6">Add New Resource</h2>
+        <form id="add-resource-form" class="space-y-4">
+          <div>
+            <label class="block mb-2">Title *</label>
+            <input type="text" id="resource-title" required class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block mb-2">Description *</label>
+            <textarea id="resource-description" required rows="4" class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none"></textarea>
+          </div>
+
+          <div>
+            <label class="block mb-2">Category *</label>
+            <select id="resource-category" required class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none">
+              <option value="Technology">Technology</option>
+              <option value="Arts">Arts</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Business">Business</option>
+              <option value="Health">Health</option>
+              <option value="Education">Education</option>
+              <option value="AI Tools">AI Tools</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block mb-2">Link *</label>
+            <input type="url" id="resource-link" required class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none" placeholder="https://example.com">
+          </div>
+
+          <button type="submit" class="w-full py-3 rounded-xl text-white transition-all hover:scale-105 shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+            Add Resource
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+  <script>
+    // Tab switching
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabName = btn.dataset.tab;
+        
+        // Update button styles
+        tabButtons.forEach(b => {
+          if (b === btn) {
+            b.style.background = 'linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%)';
+            b.classList.add('text-white', 'shadow-lg');
+          } else {
+            b.style.background = 'transparent';
+            b.classList.remove('text-white', 'shadow-lg');
+          }
+        });
+
+        // Show/hide content
+        tabContents.forEach(content => {
+          if (content.id === `tab-${tabName}`) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        });
+
+        // Load content based on tab
+        if (tabName === 'all') loadAllResources();
+        if (tabName === 'bookmarks') loadBookmarks();
+        if (tabName === 'requests') loadTrainingRequests();
+      });
+    });
+
+    // Load all resources
+    function loadAllResources() {
+      const category = document.getElementById('category-filter').value;
+      const resources = window.skillHubApp.resources.filter(r => 
+        category === 'All' || r.category === category
+      );
+
+      const grid = document.getElementById('resources-grid');
+      grid.innerHTML = resources.map(r => createResourceCard(r)).join('');
+    }
+
+    // Create resource card HTML
+    function createResourceCard(resource) {
+      const isBookmarked = window.skillHubApp.isBookmarked(resource.id);
+      const hasUpvoted = window.skillHubApp.currentUser && resource.upvotedBy.includes(window.skillHubApp.currentUser.id);
+
+      return `
+        <div class="backdrop-blur-md rounded-2xl border-2 shadow-lg p-6">
+          <div class="flex justify-between items-start mb-4">
+            <span class="px-3 py-1 rounded-lg text-sm border">${resource.category}</span>
+            <button onclick="toggleBookmark('${resource.id}')" class="p-2">
+              ${isBookmarked ? '★' : '☆'}
+            </button>
+          </div>
+          
+          <h3 class="text-xl mb-2">${resource.title}</h3>
+          <p class="opacity-80 mb-4">${resource.description}</p>
+          
+          <div class="flex items-center gap-4 mb-4 text-sm opacity-80">
+            <span>By ${resource.authorName}</span>
+            <span>${window.skillHubApp.formatDate(resource.createdAt)}</span>
+          </div>
+          
+          <div class="flex items-center gap-4 mb-4">
+            <button onclick="upvoteResource('${resource.id}')" class="flex items-center gap-1 ${hasUpvoted ? 'text-cyan-500' : ''}">
+              ↑ ${resource.upvotes}
+            </button>
+            <span>★ ${resource.rating.toFixed(1)}</span>
+            <span>💬 ${resource.comments.length}</span>
+          </div>
+          
+          <a href="${resource.link}" target="_blank" class="block w-full text-center py-2 rounded-xl text-white transition-all hover:scale-105" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+            View Resource
+          </a>
+        </div>
+      `;
+    }
+
+    // Load bookmarks
+    function loadBookmarks() {
+      const bookmarkedIds = window.skillHubApp.bookmarkedResources;
+      const resources = window.skillHubApp.resources.filter(r => bookmarkedIds.includes(r.id));
+
+      const grid = document.getElementById('bookmarks-grid');
+      const noBookmarks = document.getElementById('no-bookmarks');
+
+      if (resources.length === 0) {
+        grid.innerHTML = '';
+        noBookmarks.classList.remove('hidden');
+      } else {
+        noBookmarks.classList.add('hidden');
+        grid.innerHTML = resources.map(r => createResourceCard(r)).join('');
+      }
+    }
+
+    // Load training requests
+    function loadTrainingRequests() {
+      const requests = window.skillHubApp.trainingRequests;
+      const grid = document.getElementById('requests-grid');
+
+      grid.innerHTML = requests.map(r => `
+        <div class="backdrop-blur-md rounded-2xl border-2 shadow-lg p-6">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-xl mb-2">${r.skill}</h3>
+              <p class="opacity-80 mb-2">${r.description}</p>
+              <p class="text-sm opacity-60">Requested by ${r.userName} • ${window.skillHubApp.timeAgo(r.createdAt)}</p>
+            </div>
+            <span class="px-3 py-1 rounded-lg text-xs uppercase border ${r.status === 'open' ? 'text-green-500' : ''}">${r.status}</span>
+          </div>
+          <button onclick="expressInterest('${r.id}')" class="px-4 py-2 rounded-xl transition-all" style="color: var(--theme-color);">
+            Express Interest (${r.interestedUsers.length})
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Global functions
+    window.toggleBookmark = (id) => {
+      if (!window.skillHubApp.currentUser) {
+        alert('Please login to bookmark resources');
+        return;
+      }
+      window.skillHubApp.toggleBookmark(id);
+      loadAllResources();
+      loadBookmarks();
+    };
+
+    window.upvoteResource = (id) => {
+      if (!window.skillHubApp.currentUser) {
+        alert('Please login to upvote resources');
+        return;
+      }
+      window.skillHubApp.upvoteResource(id);
+      loadAllResources();
+    };
+
+    window.expressInterest = (id) => {
+      if (!window.skillHubApp.currentUser) {
+        alert('Please login to express interest');
+        return;
+      }
+      window.skillHubApp.expressInterest(id);
+      loadTrainingRequests();
+      alert('Interest expressed!');
+    };
+
+    // Category filter
+    document.getElementById('category-filter').addEventListener('change', loadAllResources);
+
+    // Add resource form
+    document.getElementById('add-resource-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      if (!window.skillHubApp.currentUser) {
+        alert('Please login to add resources');
+        return;
+      }
+
+      const resource = {
+        title: document.getElementById('resource-title').value,
+        description: document.getElementById('resource-description').value,
+        category: document.getElementById('resource-category').value,
+        link: document.getElementById('resource-link').value
+      };
+
+      window.skillHubApp.addResource(resource);
+      alert('Resource added successfully!');
+      e.target.reset();
+      
+      // Switch to all resources tab
+      document.querySelector('[data-tab="all"]').click();
+    });
+
+    // Add request button
+    document.getElementById('add-request-btn').addEventListener('click', () => {
+      if (!window.skillHubApp.currentUser) {
+        alert('Please login to add training requests');
+        return;
+      }
+
+      const skill = prompt('What skill are you looking for?');
+      const description = prompt('Describe what you want to learn:');
+      
+      if (skill && description) {
+        window.skillHubApp.addTrainingRequest({ skill, description });
+        loadTrainingRequests();
+        alert('Training request added!');
+      }
+    });
+
+    // Initial load
+    loadAllResources();
+  </script>
+</body>
+</html>

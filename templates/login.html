@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SkillHub</title>
+  <link rel="stylesheet" href="/styles/globals.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+  <div class="w-full max-w-md relative">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 -left-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+      <div class="absolute bottom-20 -right-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+    </div>
+
+    <!-- Auth Card -->
+    <div class="backdrop-blur-md rounded-2xl border-2 shadow-xl p-8 relative z-10">
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white shadow-lg" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+        </div>
+        <h1 class="text-3xl mb-2">Welcome to SkillHub</h1>
+        <p class="opacity-80">Sign in to access your learning community</p>
+      </div>
+
+      <!-- Toggle Buttons -->
+      <div class="flex gap-2 mb-6 p-1 rounded-xl border-2">
+        <button id="login-tab" class="flex-1 py-2 rounded-lg transition-all text-white" style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);">
+          Login
+        </button>
+        <button id="signup-tab" class="flex-1 py-2 rounded-lg transition-all">
+          Sign Up
+        </button>
+      </div>
+
+      <!-- Login Form -->
+      <form id="login-form" class="space-y-4">
+        <div>
+          <label class="block mb-2">Email *</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            required
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="your@email.com"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2">Password *</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            required
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="••••••••"
+          >
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full py-3 rounded-xl text-white transition-all hover:scale-105 shadow-lg"
+          style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);"
+        >
+          Login
+        </button>
+      </form>
+
+      <!-- Signup Form -->
+      <form id="signup-form" class="space-y-4 hidden">
+        <div>
+          <label class="block mb-2">Full Name *</label>
+          <input 
+            type="text" 
+            id="signup-fullname" 
+            required
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="John Doe"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2">Email *</label>
+          <input 
+            type="email" 
+            id="signup-email" 
+            required
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="your@email.com"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2">Password *</label>
+          <input 
+            type="password" 
+            id="signup-password" 
+            required
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="••••••••"
+          >
+        </div>
+
+        <div>
+          <label class="block mb-2">Pronouns (Optional)</label>
+          <select 
+            id="signup-pronouns"
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+          >
+            <option value="">Prefer not to say</option>
+            <option value="she/her">She/Her</option>
+            <option value="he/him">He/Him</option>
+            <option value="they/them">They/Them</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block mb-2">Phone (Optional)</label>
+          <input 
+            type="tel" 
+            id="signup-phone"
+            class="w-full px-4 py-3 border-2 rounded-xl focus:outline-none transition-all"
+            placeholder="+1 (555) 000-0000"
+          >
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full py-3 rounded-xl text-white transition-all hover:scale-105 shadow-lg"
+          style="background: linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%);"
+        >
+          Sign Up
+        </button>
+      </form>
+
+      <div class="mt-6 text-center">
+        <a href="/index.html" class="opacity-80 hover:opacity-100 transition-all">
+          ← Back to Home
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    const loginTab = document.getElementById('login-tab');
+    const signupTab = document.getElementById('signup-tab');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+
+    // Tab switching
+    loginTab.addEventListener('click', () => {
+      loginTab.style.background = 'linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%)';
+      loginTab.classList.add('text-white');
+      signupTab.style.background = 'transparent';
+      signupTab.classList.remove('text-white');
+      loginForm.classList.remove('hidden');
+      signupForm.classList.add('hidden');
+    });
+
+    signupTab.addEventListener('click', () => {
+      signupTab.style.background = 'linear-gradient(135deg, var(--theme-color) 0%, #0891b2 100%)';
+      signupTab.classList.add('text-white');
+      loginTab.style.background = 'transparent';
+      loginTab.classList.remove('text-white');
+      signupForm.classList.remove('hidden');
+      loginForm.classList.add('hidden');
+    });
+
+    // Login form submission
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      window.skillHubApp.login(email, password);
+      alert('Login successful!');
+      window.location.href = '/index.html';
+    });
+
+    // Signup form submission
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userData = {
+        fullName: document.getElementById('signup-fullname').value,
+        email: document.getElementById('signup-email').value,
+        password: document.getElementById('signup-password').value,
+        pronouns: document.getElementById('signup-pronouns').value,
+        phone: document.getElementById('signup-phone').value
+      };
+
+      window.skillHubApp.signup(userData);
+      alert('Signup successful!');
+      window.location.href = '/index.html';
+    });
+
+    // Apply input styling based on theme
+    function updateInputStyles() {
+      const isDark = window.skillHubApp.settings.darkMode;
+      const inputs = document.querySelectorAll('input, select');
+      
+      inputs.forEach(input => {
+        if (isDark) {
+          input.classList.add('bg-gray-700/50', 'border-cyan-500/30', 'text-white', 'focus:border-cyan-500');
+          input.classList.remove('bg-white', 'border-cyan-200', 'focus:border-cyan-400');
+        } else {
+          input.classList.add('bg-white', 'border-cyan-200', 'focus:border-cyan-400');
+          input.classList.remove('bg-gray-700/50', 'border-cyan-500/30', 'text-white', 'focus:border-cyan-500');
+        }
+      });
+    }
+
+    // Update on load
+    updateInputStyles();
+  </script>
+</body>
+</html>
