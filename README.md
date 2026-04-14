@@ -13,15 +13,15 @@
 
 ### Choice of Tech Stack
 
-This project uses **Flask** as a server-side web framework and MongoDB as the database.
-**Flask** was selected since its a lighweight web application framework written in Python that is designed to make getting started quick and easy (Zyneto Global Technologies, 2026). it allows for session management and form procession, which aligns with the assignments goal of using backend, middleware and server-side rendering.
-**MongoDB** was chosen as a database solution because it is well suited for making user-generated content such as profiles, resources or comments. I also picked this daatabase solution since MongoDB can handle high volume and scale both vertically or horizontally to accomodate large data loads (MongoDB, 2024).
-For the alternative frameworks, the option was Express (Node.js), however I decided to use Flask since it alisngs with the modules teachings and materials.
+This project uses **Flask** as a server-side web framework and **MongoDB** as the database.
+**Flask** was selected since it's a lightweight web application framework written in Python, designed to make getting started quick and easy (Zyneto Global Technologies, 2026). It enables session management and form processing, aligning with the assignment's goal of utilising backend, middleware, and server-side rendering.
+**MongoDB** was chosen as a database solution because it is well-suited for storing user-generated content, such as profiles, resources, or comments. I also chose this database solution because MongoDB can handle high volumes and scale both vertically and horizontally to accommodate large data loads (MongoDB, 2024).
+For the alternative frameworks, the option was Express (Node.js), and I decided to use Flask since it aligns with the modules' teachings and materials.
 
 ### Project Goals
 
-The goal of this project was to transition the front-end interface from assignment 1, into a fullly functionind Community Skill Swap Hub application.
-The original UI was deisnged using Figma, for this assignemnt I had to reimplent the application using Flask to support tdata storage and authentication. The completed system allows users to register, log in and manage profiles.
+The goal of this project was to transition the front-end interface from assignment 1 into a fully functioning Community Skill Swap Hub application.
+The original UI was designed using Figma. For this assignment, I had to reimplement the application using Flask to support data storage and authentication. The completed system allows users to register, log in and manage profiles.
 
 ---
 
@@ -124,26 +124,26 @@ If the connection fails, check:
 <!-- Tick the features you have completed by changing [ ] to [x] -->
 
 ### Core Features (MVP)
-- [ ] User registration with username, email, and password
-- [ ] Password hashing using Werkzeug
-- [ ] User login with credential verification
-- [ ] Session management (logged-in state)
-- [ ] User logout
-- [ ] Profile page displaying user details
-- [ ] Profile editing (bio, hobbies, email)
-- [ ] Profile photo upload
-- [ ] Resource posting form (title, link, description, category)
-- [ ] Timeline displaying all shared resources from the database
+- [x] User registration with username, email, and password
+- [x] Password hashing using Werkzeug
+- [x] User login with credential verification
+- [x] Session management (logged-in state)
+- [x] User logout
+- [x] Profile page displaying user details
+- [x] Profile editing (bio, hobbies, email)
+- [x] Profile photo upload
+- [x] Resource posting form (title, link, description, category)
+- [x] Timeline displaying all shared resources from the database
 
 ### Extended Features (50%)
-- [ ] Category filtering on the timeline
-- [ ] Keyword search across titles and descriptions
-- [ ] Server-side validation for all mandatory fields
-- [ ] Custom 404 error page
-- [ ] Custom 500 error page
-- [ ] Timestamps displayed on resource cards
-- [ ] Database seeding script for testing
-- [ ] User's posted resources shown on their profile page
+- [x] Category filtering on the timeline
+- [x] Keyword search across titles and descriptions
+- [x] Server-side validation for all mandatory fields
+- [x] Custom 404 error page
+- [x] Custom 500 error page
+- [x] Timestamps displayed on resource cards
+- [x] Database seeding script for testing
+- [x] User's posted resources shown on their profile page
 
 ---
 
@@ -189,9 +189,11 @@ This project uses MongoDB (NoSQL). The database contains two collections:
 | created_at | DateTime | Timestamp of when the resource was posted |
 
 ### Why NoSQL (MongoDB)?
-MongoDB was chosen as the database solution for this project as it is flexible and scalable. It also has a strong developer community, so if users are struggling they can gind precious resources for chancing answers to questions and getting support (Raza, 2023).
-The Community Skill Swap Hub stores data such as user profiles, hobbies and comments, which do not follow a fixeed structure. With MongoDB's document-based model, it can allow these entities to be stored as JSON-like document, which makes it easier to add, remove or modify these fields during development without any complex schema migrations.
-A relational database such as MySQL was considered, however it would required predefined tables and relationships, which could limit the flexiblity during iterative development.
+
+MongoDB was chosen as the database solution for this project as it is flexible and scalable. It also has a strong developer community, so if users are struggling, they can find precious resources for finding answers to questions and getting support (Raza, 2023).
+The Community Skill Swap Hub stores data such as user profiles, hobbies and comments, which do not follow a fixed structure. With MongoDB's document-based model, it can allow these entities to be stored as JSON-like documents, which makes it easier to add, remove or modify these fields during development without any complex schema migrations.
+A relational database, such as MySQL, was considered; it would require predefined tables and relationships, which could limit the flexibility during iterative development. Another issue is that Troubleshooting performance and query errors sometimes requires deeper knowledge (GeeksforGeeks, 2022). Which could increase the time the application could be finished
+
 ---
 
 ## Framework Comparison
@@ -204,7 +206,7 @@ A relational database such as MySQL was considered, however it would required pr
 | Flexibility | Highly flexible, developers can choose which library and extention to use | Less flexible, developers have to follow a set structure |
 | Best suited for | Small to medium applications and prototypes | Large, complex applications which require rapid development. |
 
-Flask was picked for this project because of its lightweight and minimalist design. Since its lightweight, it leads to faster startup times, reduces memory footprint and it is easier to deploy compared to Djago (Zyneto Global Technologies, 2026). Since because of its micro-framework apporuyach, it can provide full control over routing, authentication and database interactions, which allows backend concpets to be implemented instead of it being hidden behing a framework abstraction. Flask also allows applications to be integrated with MongoDB without any rigid project structure. With this Flask can support the Community Skill Swap Hub, in creating a flexible and funcitional platform.
+Flask was picked for this project because of its lightweight and minimalist design. Since it's lightweight, it leads to faster startup times, reduces memory footprint and is easier to deploy compared to Djago (Zyneto Global Technologies, 2026). Because of its micro-framework approach, it can provide full control over routing, authentication and database interactions, which allows backend concepts to be implemented instead of being hidden behind a framework abstraction. Flask also allows applications to be integrated with MongoDB without any rigid project structure. With this, Flask can support the Community Skill Swap Hub in creating a flexible and functional platform.
 
 ---
 
@@ -212,25 +214,27 @@ Flask was picked for this project because of its lightweight and minimalist desi
 
 ### Separation of Concerns
 
-[Explain how your code separates different responsibilities. For example, discuss how your HTML templates handle presentation, your Flask routes handle logic, and your MongoDB operations handle data. Identify at least one specific example from your code.]
+The Flask routing logic is in the app.py, where each route is responsible for handling HTTP requests, managing sessions and determining which response or template should be returned.
+<br>
+The presentation layer is isolated in the templates directory, which contains HTML files responsible for the user interface structure and layout. The dynamic data is injected into the Jinga placeholders, ensuring that the templates remain free from business logic. Static assets such as CSS, images and uploaded files are stored in a static directory
+<br>
+The database logic is separate from the routing and is encapsulated by MongoDB and configured within the database/connection.py file. This ensures that the database configuration details are not duplicated across the routes. The flask routes interact with the database with clear references, which improve maintainability and readability.
+<br>
+By separating routing, data access, and presentation into components, the application becomes easier to understand, debug and extend. This follows good practices and demonstrates good software principles for back-end focused applications.
 
-**Example:** The `get_logged_in_user()` helper function keeps the database lookup logic in one place, so it does not need to be repeated in every route that checks whether a user is logged in.
 
 ### Readability and Maintainability
 
-[Discuss how your code is organised for readability. Mention comments, consistent naming, and logical file structure.]
+The code is organised to prioritise readability and maintainability through clear and logical structures. Flask routing and application are centralised in the app.py, while the database access is separated in a database directory. The HTML templates are stored in a template folder and are only used for presentation, with dynamic data passed in from Flask routes using Jinja templating. Static assets such as CSS, images and uploaded files are stored in a static directory.
+Consistent naming of variables is used throughout the project for variables, collections and routes, which makes the code easier to follow and understand. Functions are accompanied by comments and docstrings that explain behaviours where validation or authentication is happening. This organisation provides clarity, reduces cognitive load and makes the application easier to debug.
 
 ---
 
 ## Technical Challenges and Reflection
 
-[Write about the challenges you faced during development. Below is a starter to help you get going, but replace it with your own experience.]
-
-One challenge I encountered was connecting Flask to MongoDB Atlas. Initially, [describe what happened and how you resolved it].
-
-Another difficulty was [describe a second challenge, e.g. handling file uploads, managing sessions, or getting the Jinja2 templates to display data correctly]. I resolved this by [explain your solution].
-
-Looking back, the most valuable thing I learned was [reflect on what you would do differently or what skill you developed].
+One challenge I faced during development was connecting the Flask application to MongoDB. The application failed to connect to the data base due to issues with the connection string and network access configuration. This resulted in errors when users tried to register or load resources. To avoid this, I carefully reviewed the MongoDB setup, moved the connection string into a environment variable with a .env file. This solved the issue and improved security by preventing personal data from being breached.
+Another challenged i faced, was that Python was not installed correctly during the development of the machine. This prevent the Flask application from running, which lead to command-line errors while trying to start the server. This issue was resolved when installing the correction version of Python and ensuring it was added to the systems PATH.
+Another challenged faced, was when I was running the website and some of the components didnt display or function as expected. Attempts wre made to resolve this issue with route logic or checking if the variables were correct. Still the issue was persistent and couldnt be resolved.
 
 ---
 
@@ -238,18 +242,31 @@ Looking back, the most valuable thing I learned was [reflect on what you would d
 
 ### Data Protection (GDPR)
 
-This application collects a lot of personal data such as usernames, email addresses, or user-generated content. No sensitive personal data is collected. With GDPR principles, only information necessary for authentication and community interaction is stored.
+This application collects a lot of personal data, such as usernames, email addresses, and user-generated content. No sensitive personal data is collected. With GDPR principles, only information necessary for authentication and community interaction is stored.
 User passwords are never stored in plain text. Instead, they are stored using secure hashing methods provided by Werkzeug before being stored in the MongoDB database.
-Any user data stoed in the MongoDB database cannot be accessed publicly and is only accessable through Flask routes. While account deletion is not functionable, the system allows for user data to be removed from the database if required, which follows GDPR rules.
+Any user data stored in the MongoDB database cannot be accessed publicly and is only accessible through Flask routes. While account deletion is not functional, the system allows for user data to be removed from the database if required, which follows GDPR rules.
+
+### Data Protection (Password Hashing and Legal necessity)
+User authentication data is protected through the implementation of password hashing, which ensures that passwords are never stored in plain text. During user registration, passwords are processed using Werkzeug's generate_password_hash() function before they are saved to the MongoDB database. When a user logs in, the password is checked using check_password_hash(), which allows authentication without exposing the original password.
+This approach reduces the risk of personal data being compromised if the database gets breached, as hashed passwords cannot be easily reversed. It also ensures that the developers cannot view the user passwords, which supports confidentiality. Hashing ensures that passwords are stored in a secure, non-human-readable format, reducing the risk of data breaches (Lukic, 2024).
+With GDPR, it doesn't discuss technical implementations such as password hashing. However, Article 32 of GDPR says that the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk (GDPR, 2018).
+By implementing password hashing with secure configuration, such as environment variables, the application follows GDPR principles while aligning with industry best practices for user data protection.
 
 ### Content Moderation
 
-As a community-driven application, users are allowed to share learning resources, which could intrduce ethical risks such as misleading or harmful content being shared. To prevent this, basic safeguards are implemented with a server-side alidation to ensure that all he fiels are present and correctly formatted.
+As a community-driven application, users are allowed to share learning resources, which could introduce ethical risks, such as misleading or harmful content being shared. To prevent this, basic safeguards are implemented with a server-side validation to ensure that all the fields are present and correctly formatted.
 
 ### Accessibility
 
-The application aims to follow accessibility practices. Pages are srtucutred using HTML elements, and alt text for screen readers.
-Despite this, i believe the navigation could be further improved. Such as adding higher contrast colour schemes, or more extensive keyboard
+The application aims to follow accessibility practices. Pages are structured using HTML elements and alt text for screen readers.
+Despite this, I believe the navigation could be further improved. Such as adding higher contrast colour schemes, or a more extensive keyboard
+
+### Ethical responsibility of moderating shared links
+As a community-driven platform, the Skill Swap hub allows users to share external links and learning resources, which could introduce ethical responsibilities. There are risks of users sharing misleading, inappropriate, or harmful content, which could harm the safety and trust of the community.
+<br>
+In the pilot implementation, basic ethical safeguards are implemented through server-side validation, which ensures that the required fields are present and correctly formatted before submitting. However, this validation isn't sufficient for full moderation. In a real-world deployment,  there would have been more moderation, such as reporting tools, community guidelines or link analysis that identify harmful or malicious resources.
+<br>
+Balancing the knowledge sharing with user safety is a key ethical challenge for a platform like this. By recognising these risks and designing the system to support future moderation, the project shows ethical awareness.
 
 ---
 
@@ -268,74 +285,91 @@ Despite this, i believe the navigation could be further improved. Such as adding
 ## Applied Risk Assessment
 
 ### Invalid or Malicious User input
-Users can submit incomplete, or intentionally harmful inputs, which could lead to data corruption or unexpected application behaviour<br>
+Users can submit incomplete or intentionally harmful inputs, which could lead to data corruption or unexpected application behaviour<br>
 ### Mitigation<br>
-to Mitigate this, a server side validation is implemented for all forms. All required fields are checked before they are inserted into the database, and constraints like the maximum or minimum lengths are enforced. Any erros are shown as error messages.<br>
+to Mitigate this, a server-side validation is implemented for all forms. All required fields are checked before they are inserted into the database, and constraints like the maximum or minimum lengths are enforced. Any errors are shown as error messages.<br>
 ### Evidence in Code<br>
 Validation logic is present in routes handling user registration using flash() messages.
 <br><br>
 
 ### Unsafe File Uploads
-Allowing users to upload files could introduce the risk of malicious or unsupported files types being stored in the server<br>
+Allowing users to upload files could introduce the risk of malicious or unsupported file types being stored in the server<br>
 ### Mitigation<br>
-Uplods are validated by an extensoin before being saved<br>
+Uplods are validated by an extension before being saved<br>
 ### Evidence in Code<br>
-The function allowed_file() is used to restric uploads and only allows the approved image formats
+The function allowed_file() is used to restrict uploads and only allows the approved image formats
 
 <br><br>
 
 ### Data Leakage 
-Storing user passwords insecurely can cause serious secruity and legal risk, and a potential breach could happen<br>
+Storing user passwords insecurely can cause serious security and legal risk, and a potential breach could happen<br>
 ### Mitigation<br>
-Passwods are neveer stored in plain text. Instead they are hashed using Werkzeug's password hashing before its saved in MongoDB.<br>
+Passwords are never stored in plain text. Instead, they are hashed using Werkzeug's password hashing before they are saved in MongoDB.<br>
 ### Evidence in Code<br>
 The application uses generate_password_hash() and check_password_hash() for authentication.
 
+---
+## Mitigation Evidence
+Several mitigation strategies were implemented to improve the security and stability of the application.
 
+### Password Hashing and Secure Authentication
+User passwords are protected using password hashing to reduce the risk of personal data being exposed. Passwords are hashed using Werkzeug's generate_password_hash() function before storage and verified using check_password_hash(). Plain-text passwords are never stored.
+This reduces the risk of potential data breaches, and it aligns with GDPR security requirements for the protection of personal data.
+
+### Evidence in Code<br>
+Password hashing and verification functions are in app.py
+
+### File Upload Validation
+Tp reduce the risk of invalid or malicious user input, a server-side validation was implemented in routes such as user registration and resource submission.
+
+### Evidence in Code<br>
+The validation logic was implemented in Flask routes using flash() and conditional checks.
+---
 ---
 
 ## Development Timeline (Gantt Chart)
 
-[Include a Gantt chart showing your development milestones. You can create one using a tool like TeamGantt, GanttProject, or even a simple Markdown table. Below is an example format.]
+![alt text](GanttChart.png)
 
 | Week | Task | Status |
 |---|---|---|
-| Week 1 | Set up Flask project and MongoDB Atlas connection | Complete |
-| Week 2 | Implement user registration and login | Complete |
-| Week 3 | Build resource posting and timeline display | Complete |
+| Week 1 | Set up Flask project and structure and MongoDB connection | Complete |
+| Week 2 | Implement user registration, login, session management and password hashing | Complete |
+| Week 3 | Build resource posting, database storage,  and timeline display | Complete |
 | Week 4 | Add profile management and photo upload | Complete |
-| Week 5 | Implement search, filtering, and validation | Complete |
-| Week 6 | Testing, documentation, and final polish | Complete |
-
-[You may also include a visual Gantt chart as an image file in your repository.]
+| Week 5 | Implement search, filtering, error handling, and validation | Complete |
+| Week 6 | Testing, documentation,Docker configuration, and final refinements | Complete |
 
 ---
 
 ## Version Control
 
-**GitHub Repository:** [Insert your GitHub link here]
+**GitHub Repository:** https://github.com/ChrisB0tt/Tech-Stack-Assignment-2.git
 
-Github was used to commit any changes or development to the project. It is a very useful application as it allows you to track and mangage changes to your code overtime and it allows your work to be shared (GitHub, 2024).
+GitHub was used to commit any changes or development to the project. It is a very useful application as it allows you to track and manage changes to your code over time, and it allows your work to be shared (GitHub, 2024).
 
 ---
 
+## Visual DMD Representation
+This Data Model Diagram represents the structure of the MongoDB database used in the Community Skill Swap Hub. It consists of two collections, users and resources. A relationship exists between users and resources, where a single user may post multiple resources. DMD models shows what goes where and how and explains how exactly something operates and what happens in the process. (Bilyk, 2022) <br>
+![DMD diagram](<DMD diagram.png>)
+
+---
 ## References
 
-<!-- List resources in APA 7th format. Aim for at least 8 high-quality sources. -->
-
-1. Zyneto Global Technologies. (2026). Advantages of Using Flask for Web Development. Zyneto Global Technologies. https://zyneto.com/blog/advantages-of-using-flask
-  ‌
+1. Zyneto Global Technologies. (2026). Advantages of Using Flask for Web Development. Zyneto Global Technologies. https://zyneto.com/blog/advantages-of-using-flask  ‌
 2. MongoDB. (2024). Why Use MongoDB And When To Use It? MongoDB. https://www.mongodb.com/resources/products/fundamentals/why-use-mongodb
 3. GitHub. (2024). About GitHub and Git. GitHub Docs. https://docs.github.com/en/get-started/start-your-journey/about-github-and-git
 4. Raza, A. (2023, January 2). 10 Reasons Why MongoDB is the Best NoSQL Database - Ahsan Raza - Medium. Medium; Medium. https://medium.com/@ahsancommits/10-reasons-why-mongodb-is-the-best-nosql-database-17ad10e4319f
+5. GDPR. (2018). Art. 32 GDPR – Security of processing | General Data Protection Regulation (GDPR). General Data Protection Regulation (GDPR). https://gdpr-info.eu/art-32-gdpr/
+6. Bilyk, V. (2022, November 26). Data Flow Diagrams Explained ≡ Блог ArtofBA. ArtofBA. https://www.artofba.com/uk/post/data-flow-diagrams-dfd-explained-1
+7. Lukic, D. (2024, June 25). Hash, salt and verify passwords - Node, Python, Go and Java. Supertokens.com. https://supertokens.com/blog/password-hashing-salting
+8. GeeksforGeeks. (2022, November 7). Disadvantages of Using MySQL. GeeksforGeeks. https://www.geeksforgeeks.org/sql/disadvantages-of-using-mysql/
 
-5. 
-6. 
-7. 
-8. 
+‌
 
 ---
 
 ## Generative AI Disclosure
 
-This assignment used generative AI in the following ways for the purposes of completing the assignment: [choose from: brainstorming, research, planning]
+This assignment used generative AI in the following ways for the purposes of completing the assignment: brainstorming, research, planning
