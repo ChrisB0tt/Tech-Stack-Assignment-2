@@ -121,7 +121,7 @@ If the connection fails, check:
 
 ## Features Implemented
 
-<!-- Tick the features you have completed by changing [ ] to [x] -->
+
 
 ### Core Features (MVP)
 - [x] User registration with username, email, and password
@@ -135,7 +135,7 @@ If the connection fails, check:
 - [x] Resource posting form (title, link, description, category)
 - [x] Timeline displaying all shared resources from the database
 
-### Extended Features (50%)
+### Extended Features
 - [x] Category filtering on the timeline
 - [x] Keyword search across titles and descriptions
 - [x] Server-side validation for all mandatory fields
@@ -235,7 +235,7 @@ Consistent naming of variables is used throughout the project for variables, col
 One challenge I faced during development was connecting the Flask application to MongoDB. The application failed to connect to the data base due to issues with the connection string and network access configuration. This resulted in errors when users tried to register or load resources. To avoid this, I carefully reviewed the MongoDB setup, moved the connection string into a environment variable with a .env file. This solved the issue and improved security by preventing personal data from being breached.
 Another challenged i faced, was that Python was not installed correctly during the development of the machine. This prevent the Flask application from running, which lead to command-line errors while trying to start the server. This issue was resolved when installing the correction version of Python and ensuring it was added to the systems PATH.
 Another challenged faced, was when I was running the website and some of the components didnt display or function as expected. Attempts wre made to resolve this issue with route logic or checking if the variables were correct. Still the issue was persistent and couldnt be resolved.
-
+Overall the project went smoothly, while some errors still remain, the MVP was followed
 ---
 
 ## Legal and Ethical Considerations
@@ -329,7 +329,7 @@ The validation logic was implemented in Flask routes using flash() and condition
 
 ## Development Timeline (Gantt Chart)
 
-![alt text](GanttChart.png)
+![alt text](static/uploads/GanttChart.png)
 
 | Week | Task | Status |
 |---|---|---|
@@ -352,7 +352,8 @@ GitHub was used to commit any changes or development to the project. It is a ver
 
 ## Visual DMD Representation
 This Data Model Diagram represents the structure of the MongoDB database used in the Community Skill Swap Hub. It consists of two collections, users and resources. A relationship exists between users and resources, where a single user may post multiple resources. DMD models shows what goes where and how and explains how exactly something operates and what happens in the process. (Bilyk, 2022) <br>
-![DMD diagram](<DMD diagram.png>)
+
+![DMD diagram](/static/uploads/DMDdiagram.png)
 
 ---
 ## References
