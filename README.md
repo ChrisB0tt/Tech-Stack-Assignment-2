@@ -232,13 +232,9 @@ Consistent naming variables are used throughout the project for variable, collec
 
 ## Technical Challenges and Reflection
 
-[Write about the challenges you faced during development. Below is a starter to help you get going, but replace it with your own experience.]
-
-One challenge I encountered was connecting Flask to MongoDB Atlas. Initially, [describe what happened and how you resolved it].
-
-Another difficulty was [describe a second challenge, e.g. handling file uploads, managing sessions, or getting the Jinja2 templates to display data correctly]. I resolved this by [explain your solution].
-
-Looking back, the most valuable thing I learned was [reflect on what you would do differently or what skill you developed].
+One challenge I faced during development was connecting the Flask application to MongoDB. The application failed to connect to the data base due to issues with the connection string and network access configuration. This resulted in errors when users tried to register or load resources. To avoid this, I carefully reviewed the MongoDB setup, moved the connection string into a environment variable with a .env file. This solved the issue and improved security by preventing personal data from being breached.
+Another challenged i faced, was that Python was not installed correctly during the development of the machine. This prevent the Flask application from running, which lead to command-line errors while trying to start the server. This issue was resolved when installing the correction version of Python and ensuring it was added to the systems PATH.
+Another challenged faced, was when I was running the website and some of the components didnt display or function as expected. Attempts wre made to resolve this issue with route logic or checking if the variables were correct. Still the issue was persistent and couldnt be resolved.
 
 ---
 
