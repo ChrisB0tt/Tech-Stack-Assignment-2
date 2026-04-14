@@ -212,9 +212,14 @@ Flask was picked for this project because of its lightweight and minimalist desi
 
 ### Separation of Concerns
 
-[Explain how your code separates different responsibilities. For example, discuss how your HTML templates handle presentation, your Flask routes handle logic, and your MongoDB operations handle data. Identify at least one specific example from your code.]
+The Flask routing logic is in the app.py, where each route is responsible for handling HTTP requests, managing sessions and determing which response or template should be returned.
+<br>
+The presentation layer is isolated in the templates directory, which contains HTML files responsible for the user interface structure and layout. The dynamic data is injected in the Jinga placeholders, ensuring that the templates remain free from business logic. Static assets such as CSS, images and uploaded files are stored in a static directory
+<br>
+The database logic is separate by the routing and is encapsulated by MongoDB and configurated within the database/connection.py file. This ensures that the database configuration details are not duplicated across the routes. The flask routes interact with the database with clear references, which imporve maintanability and readability.
+<br>
+By separating routing, data acess and presentation into components, the applicatoin becomes easier to understand, debug and extend. This follows good practices and demostrrates good software principles for back-end focused applications.
 
-**Example:** The `get_logged_in_user()` helper function keeps the database lookup logic in one place, so it does not need to be repeated in every route that checks whether a user is logged in.
 
 ### Readability and Maintainability
 
@@ -250,6 +255,13 @@ As a community-driven application, users are allowed to share learning resources
 
 The application aims to follow accessibility practices. Pages are srtucutred using HTML elements, and alt text for screen readers.
 Despite this, i believe the navigation could be further improved. Such as adding higher contrast colour schemes, or more extensive keyboard
+
+### Ethical responsibility of moderating shared links
+As a community driven platform, the Skill Swap hub allows users to share external links and learning resources, which could introduce ethical responsiblities. There are risks of users sharing misleading, inapropriate or harmful content, which could harm the safety and trust of the community.
+<br>
+In the pilot implementation, basic ethical safeguards are implemented through server-side validation, which esnures that the required fields are present and correctly formatted before submitting. However, this validation isnt sufficient, for full moderation. In a real-world deploymeny,  there would have been more more moderation such as reporting tools, community guidelines or link analysis that identify harmful or malicious resources.
+<br>
+By balancing the knowledge sharing with user safety is an is a key ethical challenge for a platform like this. By recognising these risks and designing the system to support future moderation, the project shows ethical awareness.
 
 ---
 
@@ -319,6 +331,10 @@ Github was used to commit any changes or development to the project. It is a ver
 
 ---
 
+## Visual DMD Representation
+
+
+---
 ## References
 
 <!-- List resources in APA 7th format. Aim for at least 8 high-quality sources. -->
