@@ -189,9 +189,11 @@ This project uses MongoDB (NoSQL). The database contains two collections:
 | created_at | DateTime | Timestamp of when the resource was posted |
 
 ### Why NoSQL (MongoDB)?
+
 MongoDB was chosen as the database solution for this project as it is flexible and scalable. It also has a strong developer community, so if users are struggling they can gind precious resources for chancing answers to questions and getting support (Raza, 2023).
 The Community Skill Swap Hub stores data such as user profiles, hobbies and comments, which do not follow a fixeed structure. With MongoDB's document-based model, it can allow these entities to be stored as JSON-like document, which makes it easier to add, remove or modify these fields during development without any complex schema migrations.
 A relational database such as MySQL was considered, however it would required predefined tables and relationships, which could limit the flexiblity during iterative development.
+
 ---
 
 ## Framework Comparison
@@ -223,7 +225,8 @@ By separating routing, data acess and presentation into components, the applicat
 
 ### Readability and Maintainability
 
-[Discuss how your code is organised for readability. Mention comments, consistent naming, and logical file structure.]
+The code is organised to priorities readability and maintanability through clear and logical structures. Flasks routing and application and centralised in the app.py, while the database access are seperated in a database directory. The HTML templates are stored in a template folder and are only used for presentation, with dynamic data passed in from Flask routes using Jinja templating. Static assets such as CSS, images and uploaded files are stored in a static directory.
+Consistent naming variables are used throughout the project for variable, collections and reoutes, which makes the code more easier to follow and understand. Functions are accopanied by comments and docstrings that explain behaviours where validation or authentication is happening. This organisation provides clarity, reduces cognitive load and makes the application easier to debug.
 
 ---
 
@@ -246,6 +249,12 @@ Looking back, the most valuable thing I learned was [reflect on what you would d
 This application collects a lot of personal data such as usernames, email addresses, or user-generated content. No sensitive personal data is collected. With GDPR principles, only information necessary for authentication and community interaction is stored.
 User passwords are never stored in plain text. Instead, they are stored using secure hashing methods provided by Werkzeug before being stored in the MongoDB database.
 Any user data stoed in the MongoDB database cannot be accessed publicly and is only accessable through Flask routes. While account deletion is not functionable, the system allows for user data to be removed from the database if required, which follows GDPR rules.
+
+### Data Protection (Password Hashing and Legal necessity)
+User authentication data is protected through the implementation of password hashing, which ensures that passwords are never stored in plain text. During user registration, passwords are processed using Werkzeug's generate_password_hash() function before it is saved to the MongoDB database. When a user logs in, the password is checked using check_password_hash(), which allows authentication without exposing the original password.
+This approach reduces the risk of personal data being compromised if the database get breached, as hashed passwords cannot be easily reversed. It also ensures that the developers cannot view the user passwords, which supports confidentiality.
+With GDPR, it doesnt discuss technical implementations such as password hashing. However, in article 32 of GDRP says that the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk (GDPR, 2018).
+By implementing password hashing with secure configauration such as environment variables, the application follows GDPR principles while aligning with industry best practices for user data protecttion.
 
 ### Content Moderation
 
@@ -299,53 +308,64 @@ The function allowed_file() is used to restric uploads and only allows the appro
 ### Data Leakage 
 Storing user passwords insecurely can cause serious secruity and legal risk, and a potential breach could happen<br>
 ### Mitigation<br>
-Passwods are neveer stored in plain text. Instead they are hashed using Werkzeug's password hashing before its saved in MongoDB.<br>
+Passwords are never stored in plain text. Instead they are hashed using Werkzeug's password hashing before its saved in MongoDB.<br>
 ### Evidence in Code<br>
 The application uses generate_password_hash() and check_password_hash() for authentication.
 
+---
+## Mitigation Evidence
+Several mitigation strategies were implemented to improve the security and stability of the application.
 
+### Password Hashing and Secure Authentication
+User passwords are protected using password hashing to reduce the risk of personal data being exposed. Passwords are hashed using Werkzeug's generate_password_hash() function before storage and verified using check_password_hash(). Plain-text passwords are never stored.
+This reduces the risk of potential data breaches and it aligns with GDPR security requirements for protection of personal data.
+
+### Evidence in Code<br>
+Password hashing and verification functions are in app.py
+
+### File Upload Validation
+Ti reduce the risk of invalid or malicious user input, a server-side validation was implemented in routes such as user registration and resource submission.
+
+### Evidence in Code<br>
+The validation logic was implemented in Flask routes using flash() and conditional checks.
+---
 ---
 
 ## Development Timeline (Gantt Chart)
 
-[Include a Gantt chart showing your development milestones. You can create one using a tool like TeamGantt, GanttProject, or even a simple Markdown table. Below is an example format.]
+![alt text](GanttChart.png)
 
 | Week | Task | Status |
 |---|---|---|
-| Week 1 | Set up Flask project and MongoDB Atlas connection | Complete |
-| Week 2 | Implement user registration and login | Complete |
-| Week 3 | Build resource posting and timeline display | Complete |
+| Week 1 | Set up Flask project and structure and MongoDB connection | Complete |
+| Week 2 | Implement user registration, login, session management and password hashing | Complete |
+| Week 3 | Build resource posting, database storage,  and timeline display | Complete |
 | Week 4 | Add profile management and photo upload | Complete |
-| Week 5 | Implement search, filtering, and validation | Complete |
-| Week 6 | Testing, documentation, and final polish | Complete |
-
-[You may also include a visual Gantt chart as an image file in your repository.]
+| Week 5 | Implement search, filtering, error handling, and validation | Complete |
+| Week 6 | Testing, documentation,Docker configuration, and final refinements | Complete |
 
 ---
 
 ## Version Control
 
-**GitHub Repository:** [Insert your GitHub link here]
+**GitHub Repository:** https://github.com/ChrisB0tt/Tech-Stack-Assignment-2.git
 
 Github was used to commit any changes or development to the project. It is a very useful application as it allows you to track and mangage changes to your code overtime and it allows your work to be shared (GitHub, 2024).
 
 ---
 
 ## Visual DMD Representation
-
+This Data Model Diagram represents the structure of the MongoDB database used in the Community Skill Swap Hub. It consists of two collections, users and recourses. A relationship exists between users and resources, where a signle user may post multiple resources. <br>
+![DMD diagram](<DMD diagram.png>)
 
 ---
 ## References
 
-<!-- List resources in APA 7th format. Aim for at least 8 high-quality sources. -->
-
-1. Zyneto Global Technologies. (2026). Advantages of Using Flask for Web Development. Zyneto Global Technologies. https://zyneto.com/blog/advantages-of-using-flask
-  ‌
+1. Zyneto Global Technologies. (2026). Advantages of Using Flask for Web Development. Zyneto Global Technologies. https://zyneto.com/blog/advantages-of-using-flask  ‌
 2. MongoDB. (2024). Why Use MongoDB And When To Use It? MongoDB. https://www.mongodb.com/resources/products/fundamentals/why-use-mongodb
 3. GitHub. (2024). About GitHub and Git. GitHub Docs. https://docs.github.com/en/get-started/start-your-journey/about-github-and-git
 4. Raza, A. (2023, January 2). 10 Reasons Why MongoDB is the Best NoSQL Database - Ahsan Raza - Medium. Medium; Medium. https://medium.com/@ahsancommits/10-reasons-why-mongodb-is-the-best-nosql-database-17ad10e4319f
-
-5. 
+5. GDPR. (2018). Art. 32 GDPR – Security of processing | General Data Protection Regulation (GDPR). General Data Protection Regulation (GDPR). https://gdpr-info.eu/art-32-gdpr/
 6. 
 7. 
 8. 
