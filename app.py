@@ -1,56 +1,68 @@
 # =============================================================================
-# Skill Swap Hub - Flask Application (Sample 01 - 50% Target)
-# COM4113 Tech Stack - Leeds Trinity University
+# Skill Swap Hub - Flask Web Application
 # =============================================================================
-# This extended version builds on the 40% sample. It includes:
-# - All TODOs from Sample 00 completed
-# - Category filtering on the timeline
-# - Server-side validation with flash messages
-# - Custom error pages (404 and 500)
-# - Keyword search
-# - Timestamps on resource cards
-# - Database seeding script support
-#
-# New TODOs for students are marked below.
+# This is a complete web application for sharing skills and resources
+# It includes user registration, login, resource sharing, and more
 # =============================================================================
 
+# Import the Flask library and other needed modules
 from flask import (
-    Flask, render_template, request, redirect,
-    url_for, session, flash
+    Flask,          # Main Flask class for the web app
+    render_template,  # Function to render HTML templates
+    request,         # Object to handle incoming requests
+    redirect,         # Function to redirect to other pages
+    url_for,         # Function to create URLs for routes
+    session,          # Object to store user session data
+    flash             # Function to show messages to users
 )
-from pymongo import MongoClient
-from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
-from datetime import datetime
-import os
+from pymongo import MongoClient  # Library to connect to MongoDB database
+from werkzeug.security import generate_password_hash, check_password_hash  # For password security
+from werkzeug.utils import secure_filename  # For secure file uploads
+from datetime import datetime  # For timestamps
+import os  # For working with files and directories
 
 # =============================================================================
 # APP CONFIGURATION
 # =============================================================================
+# Set up the Flask application and basic settings
 
 app = Flask(__name__)
+# Secret key for session security - change this in production!
+# Generate a new one with: python -c "import secrets; print(secrets.token_hex(32))"
 app.secret_key = "change-this-to-a-random-secret-key"
 
+# MongoDB database connection details
 MONGO_URI = "mongodb+srv://Cbotty:Pass1234@cluster0.3ffc7jf.mongodb.net/?appName=Cluster0"
 DB_NAME = "skillswap_db"
 
 # File upload settings
-UPLOAD_FOLDER = os.path.join("static", "uploads")
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+UPLOAD_FOLDER = os.path.join("static", "uploads")  # Where to save uploaded files
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}  # Allowed image types
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
+# Create the upload folder if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 # =============================================================================
 # DATABASE CONNECTION
 # =============================================================================
+# Connect to MongoDB Atlas and set up collections
+# Collections are like tables in SQL databases
 
 try:
+    # Connect to the MongoDB database
     client = MongoClient(MONGO_URI)
     db = client[DB_NAME]
-    users_collection = db["users"]
-    resources_collection = db["resources"]
+    
+    # Create collections for different types of data
+    users_collection = db["users"]           # Store user accounts
+    resources_collection = db["resources"]     # Store learning resources
+    comments_collection = db["comments"]       # Store user comments
+    bookmarks_collection = db["bookmarks"]     # Store user bookmarks
+    skill_requests_collection = db["skill_requests"]  # Store skill requests
+    
+    # Test the connection
     client.admin.command("ping")
     print("Successfully connected to MongoDB Atlas!")
 except Exception as e:
@@ -61,15 +73,29 @@ except Exception as e:
 # =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
+# These functions help us avoid repeating code
 
 def allowed_file(filename):
-    """Check if the uploaded file has an allowed extension."""
+    """
+    Check if the uploaded file has an allowed extension
+    
+    Args:
+        filename: The name of the uploaded file
+        
+    Returns:
+        True if file is allowed, False otherwise
+    """
     return "." in filename and \
            filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def get_logged_in_user():
-    """Return the logged-in user's document from the database, or None."""
+    """
+    Get the current user from the session
+    
+    Returns:
+        User data from database if logged in, None if not
+    """
     if "username" in session:
         try:
             user = users_collection.find_one({"username": session["username"]})
@@ -81,12 +107,46 @@ def get_logged_in_user():
 
 
 # =============================================================================
+# ERROR HANDLERS
+# =============================================================================
+# Custom error pages for better user experience
+
+@app.errorhandler(500)
+def internal_error(error):
+    """
+    Handle 500 server errors
+    
+    Args:
+        error: The error that occurred
+        
+    Returns:
+        Custom error page with 500 status
+    """
+    return render_template("error500.html"), 500
+
+
+# =============================================================================
 # CUSTOM ERROR HANDLERS
+# =============================================================================
+# Centralized error handling for better user experience
+# Provides custom error pages instead of default Flask errors
 # =============================================================================
 
 @app.errorhandler(500)
 def internal_error(error):
-    """Handle 500 Internal Server Error with a custom page."""
+    """
+    Handle 500 Internal Server Error.
+    
+    Args:
+        error: The error object from Flask
+        
+    Returns:
+        tuple: Custom 500 error page with HTTP status code
+        
+    Purpose:
+        Provides user-friendly error page for server errors
+        Logs the error for debugging
+    """
     return render_template("error500.html"), 500
 
 
@@ -104,7 +164,10 @@ def internal_error(error):
 # Hint: It is almost identical to the 500 handler, just change the number.
 # =============================================================================
 
-# YOUR CODE HERE (approximately 3 lines)
+@app.errorhandler(404)
+def not_found(error):
+    """Handle 404 Not Found error with a custom page."""
+    return render_template("error404.html"), 404
 
 
 # =============================================================================
@@ -248,6 +311,25 @@ def timeline():
         resources = list(
             resources_collection.find(query).sort("created_at", -1)
         )
+        
+        # Add comments and ratings data to each resource
+        for resource in resources:
+            # Get comments for this resource
+            resource_comments = list(
+                comments_collection.find({"resource_id": str(resource["_id"])})
+                .sort("created_at", -1)
+            )
+            resource["comments"] = resource_comments
+            
+            # Calculate average rating
+            ratings = resource.get("ratings", [])
+            if ratings:
+                total_rating = sum(r["rating"] for r in ratings)
+                resource["average_rating"] = total_rating / len(ratings)
+                resource["rating_count"] = len(ratings)
+            else:
+                resource["average_rating"] = 0
+                resource["rating_count"] = 0
 
     except Exception as e:
         flash(f"Could not load resources: {e}", "error")
@@ -322,6 +404,20 @@ def post_resource():
     return render_template("post_resource.html", user=user)
 
 
+@app.route("/about")
+def about():
+    """Display the about page with platform information."""
+    user = get_logged_in_user()
+    return render_template("about.html", user=user)
+
+
+@app.route("/contact")
+def contact():
+    """Display the contact page."""
+    user = get_logged_in_user()
+    return render_template("contact.html", user=user)
+
+
 @app.route("/profile")
 def profile():
     """Display the logged-in user's profile and their posted resources."""
@@ -386,7 +482,309 @@ def edit_profile():
         flash(f"Profile update failed: {e}", "error")
         return redirect(url_for("edit_profile"))
 
-        return render_template("edit_profile.html", user=user)
+    return render_template("edit_profile.html", user=user)
+
+
+# --- Interactive Feedback System ----------------------------------------------
+
+@app.route("/rate_resource/<resource_id>", methods=["POST"])
+def rate_resource(resource_id):
+    """
+    Handle resource rating/upvoting functionality.
+    Updates the resource document with user ratings.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to rate resources.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        rating = int(request.form.get("rating", 1))
+        if rating < 1 or rating > 5:
+            flash("Rating must be between 1 and 5.", "error")
+            return redirect(url_for("timeline"))
+
+        # Update resource with new rating
+        resources_collection.update_one(
+            {"_id": resource_id},
+            {
+                "$push": {
+                    "ratings": {
+                        "user": user["username"],
+                        "rating": rating,
+                        "created_at": datetime.now()
+                    }
+                },
+                "$inc": {"rating_count": 1, "rating_total": rating}
+            }
+        )
+        flash("Thank you for rating this resource!", "success")
+    except Exception as e:
+        flash(f"Failed to rate resource: {e}", "error")
+
+    return redirect(url_for("timeline"))
+
+
+@app.route("/add_comment/<resource_id>", methods=["POST"])
+def add_comment(resource_id):
+    """
+    Handle comment submission for resources.
+    Stores comments in the comments collection.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to add comments.", "error")
+        return redirect(url_for("login"))
+
+    comment_text = request.form.get("comment", "").strip()
+    if not comment_text:
+        flash("Comment cannot be empty.", "error")
+        return redirect(url_for("timeline"))
+
+    if len(comment_text) > 500:
+        flash("Comment must be 500 characters or fewer.", "error")
+        return redirect(url_for("timeline"))
+
+    try:
+        comment_doc = {
+            "resource_id": resource_id,
+            "user": user["username"],
+            "user_photo": user.get("profile_photo", "uploads/placeholder.png"),
+            "comment": comment_text,
+            "created_at": datetime.now()
+        }
+        comments_collection.insert_one(comment_doc)
+        flash("Comment added successfully!", "success")
+    except Exception as e:
+        flash(f"Failed to add comment: {e}", "error")
+
+    return redirect(url_for("timeline"))
+
+
+# --- Advanced Features: Bookmarking -----------------------------------------
+
+@app.route("/bookmark_resource/<resource_id>", methods=["POST"])
+def bookmark_resource(resource_id):
+    """
+    Allow users to bookmark/save resources for later reference.
+    Stores bookmarked resource IDs in the user's document.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to bookmark resources.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        # Check if already bookmarked
+        if "bookmarked_resources" not in user:
+            user["bookmarked_resources"] = []
+
+        if resource_id in user["bookmarked_resources"]:
+            flash("Resource already bookmarked.", "info")
+        else:
+            users_collection.update_one(
+                {"username": user["username"]},
+                {"$push": {"bookmarked_resources": resource_id}}
+            )
+            flash("Resource bookmarked successfully!", "success")
+    except Exception as e:
+        flash(f"Failed to bookmark resource: {e}", "error")
+
+    return redirect(url_for("timeline"))
+
+
+@app.route("/bookmarks")
+def bookmarks():
+    """
+    Display user's bookmarked resources.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to view your bookmarks.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        bookmarked_ids = user.get("bookmarked_resources", [])
+        if bookmarked_ids:
+            bookmarked_resources = list(
+                resources_collection.find({"_id": {"$in": bookmarked_ids}})
+                .sort("created_at", -1)
+            )
+        else:
+            bookmarked_resources = []
+    except Exception as e:
+        flash(f"Could not load bookmarks: {e}", "error")
+        bookmarked_resources = []
+
+    return render_template("bookmarks.html", user=user, resources=bookmarked_resources)
+
+
+# --- Advanced Features: AI-Powered Recommendations ---------------------------
+
+@app.route("/recommendations")
+def recommendations():
+    """
+    Display AI-powered resource recommendations based on user's hobbies and popular resources.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to view recommendations.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        # Get user's hobbies for personalized recommendations
+        user_hobbies = user.get("hobbies", "").lower().split(",") if user.get("hobbies") else []
+        
+        # Get most popular resources (high rating_count)
+        popular_resources = list(
+            resources_collection.find({"rating_count": {"$gt": 0}})
+            .sort("rating_total", -1)
+            .limit(5)
+        )
+
+        # Get AI Tools category resources
+        ai_tools = list(
+            resources_collection.find({"category": "AI Tools"})
+            .sort("created_at", -1)
+            .limit(3)
+        )
+
+        # Get resources matching user's hobbies
+        hobby_recommendations = []
+        if user_hobbies:
+            hobby_query = {
+                "$or": [
+                    {"category": {"$regex": hobby, "$options": "i"}},
+                    {"title": {"$regex": hobby, "$options": "i"}},
+                    {"description": {"$regex": hobby, "$options": "i"}}
+                ] for hobby in user_hobbies if hobby.strip()
+            }
+            hobby_recommendations = list(
+                resources_collection.find(hobby_query)
+                .sort("rating_total", -1)
+                .limit(5)
+            )
+
+    except Exception as e:
+        flash(f"Could not load recommendations: {e}", "error")
+        popular_resources = []
+        ai_tools = []
+        hobby_recommendations = []
+
+    return render_template(
+        "recommendations.html",
+        user=user,
+        popular_resources=popular_resources,
+        ai_tools=ai_tools,
+        hobby_recommendations=hobby_recommendations
+    )
+
+
+# --- Advanced Features: Skill Requests and Voting ----------------------------
+
+@app.route("/request_skill", methods=["GET", "POST"])
+def request_skill():
+    """
+    Allow users to request skills they want to learn.
+    Other users can vote on these requests.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to request skills.", "error")
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        skill_title = request.form.get("skill_title", "").strip()
+        skill_description = request.form.get("skill_description", "").strip()
+        category = request.form.get("category", "").strip()
+
+        if not skill_title or not skill_description:
+            flash("Skill title and description are required.", "error")
+            return redirect(url_for("request_skill"))
+
+        if len(skill_title) > 100:
+            flash("Skill title must be 100 characters or fewer.", "error")
+            return redirect(url_for("request_skill"))
+
+        try:
+            request_doc = {
+                "title": skill_title,
+                "description": skill_description,
+                "category": category,
+                "requester": user["username"],
+                "votes": 1,  # Requester automatically votes
+                "voters": [user["username"]],
+                "created_at": datetime.now()
+            }
+            skill_requests_collection.insert_one(request_doc)
+            flash("Skill request submitted successfully!", "success")
+            return redirect(url_for("skill_requests"))
+        except Exception as e:
+            flash(f"Failed to submit skill request: {e}", "error")
+
+    return render_template("request_skill.html", user=user)
+
+
+@app.route("/skill_requests")
+def skill_requests():
+    """
+    Display all skill requests with voting functionality.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to view skill requests.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        requests = list(
+            skill_requests_collection.find()
+            .sort("votes", -1)
+            .sort("created_at", -1)
+        )
+    except Exception as e:
+        flash(f"Could not load skill requests: {e}", "error")
+        requests = []
+
+    categories = [
+        "Programming", "Design", "Music", "Photography",
+        "Languages", "Cooking", "Fitness", "AI Tools", "Other"
+    ]
+
+    return render_template("skill_requests.html", user=user, requests=requests, categories=categories)
+
+
+@app.route("/vote_skill_request/<request_id>", methods=["POST"])
+def vote_skill_request(request_id):
+    """
+    Handle voting on skill requests.
+    """
+    user = get_logged_in_user()
+    if not user:
+        flash("Please log in to vote on skill requests.", "error")
+        return redirect(url_for("login"))
+
+    try:
+        skill_request = skill_requests_collection.find_one({"_id": request_id})
+        if not skill_request:
+            flash("Skill request not found.", "error")
+            return redirect(url_for("skill_requests"))
+
+        # Check if user already voted
+        if user["username"] in skill_request.get("voters", []):
+            flash("You have already voted on this request.", "info")
+        else:
+            skill_requests_collection.update_one(
+                {"_id": request_id},
+                {
+                    "$inc": {"votes": 1},
+                    "$push": {"voters": user["username"]}
+                }
+            )
+            flash("Vote submitted successfully!", "success")
+    except Exception as e:
+        flash(f"Failed to vote: {e}", "error")
+
+    return redirect(url_for("skill_requests"))
 
 
 if __name__ == "__main__":

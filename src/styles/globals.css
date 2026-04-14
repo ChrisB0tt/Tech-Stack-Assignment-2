@@ -1,0 +1,381 @@
+/**
+ * ============================================================================
+ * GLOBAL STYLES - Community Skill Swap Hub
+ * ============================================================================
+ * 
+ * This file contains all global CSS variables, base styles, and design tokens.
+ * Uses Tailwind CSS v4.0 with a custom theming system.
+ * 
+ * FILE STRUCTURE:
+ * 1. Dark mode variant definition
+ * 2. CSS Custom Properties for light theme (:root)
+ * 3. CSS Custom Properties for dark theme (.dark)
+ * 4. Theme inline layer (Tailwind integration)
+ * 5. Base layer (element defaults)
+ * 6. Typography layer (heading, paragraph, button styles)
+ * 7. HTML font-size configuration
+ * 
+ * THEMING SYSTEM:
+ * - Primary theme color is dynamically set via --theme-color in App.tsx
+ * - All color variables support both light and dark modes
+ * - Uses OKLCH color space for better color consistency
+ * - Supports accessibility features (high contrast, etc.)
+ * 
+ * ACCESSIBILITY:
+ * - Font sizes are configurable via --font-size variable
+ * - Supports dyslexia-friendly fonts (applied via App.tsx)
+ * - High contrast mode supported (overrides in App.tsx)
+ * - Reduced motion supported (animations disabled via App.tsx)
+ * 
+ * ============================================================================
+ */
+
+/* ============================================================================
+   DARK MODE VARIANT DEFINITION
+   ============================================================================
+   
+   Defines how Tailwind's dark: variant works.
+   Dark mode is applied when an element has the .dark class or is a child of .dark
+   ============================================================================ */
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================================
+   LIGHT THEME - CSS CUSTOM PROPERTIES
+   ============================================================================
+   
+   These variables define the color palette and design tokens for light mode.
+   All variables can be referenced in Tailwind classes and custom CSS.
+   ============================================================================ */
+:root {
+  /* === TYPOGRAPHY === */
+  --font-size: 16px;                           /* Base font size - can be overridden by accessibility settings */
+  --font-weight-medium: 500;                   /* Medium font weight for headings and labels */
+  --font-weight-normal: 400;                   /* Normal font weight for body text */
+  
+  /* === SURFACE COLORS === */
+  --background: #ffffff;                       /* Main page background - pure white */
+  --foreground: oklch(0.145 0 0);             /* Main text color - very dark gray (almost black) */
+  --card: #ffffff;                            /* Card background - white */
+  --card-foreground: oklch(0.145 0 0);        /* Card text color - dark gray */
+  --popover: oklch(1 0 0);                    /* Popover background - pure white */
+  --popover-foreground: oklch(0.145 0 0);     /* Popover text color - dark gray */
+  
+  /* === PRIMARY COLORS === */
+  --primary: #030213;                          /* Primary brand color - very dark blue-black */
+  --primary-foreground: oklch(1 0 0);         /* Text color on primary backgrounds - white */
+  
+  /* === SECONDARY COLORS === */
+  --secondary: oklch(0.95 0.0058 264.53);     /* Secondary color - very light purple-gray */
+  --secondary-foreground: #030213;             /* Text on secondary backgrounds - dark */
+  
+  /* === MUTED COLORS === */
+  --muted: #ececf0;                           /* Muted background - light gray */
+  --muted-foreground: #717182;                /* Muted text - medium gray */
+  
+  /* === ACCENT COLORS === */
+  --accent: #e9ebef;                          /* Accent background - light gray-blue */
+  --accent-foreground: #030213;               /* Text on accent backgrounds - dark */
+  
+  /* === DESTRUCTIVE COLORS (errors, warnings) === */
+  --destructive: #d4183d;                     /* Error/delete color - red */
+  --destructive-foreground: #ffffff;          /* Text on destructive backgrounds - white */
+  
+  /* === BORDER & INPUT COLORS === */
+  --border: rgba(0, 0, 0, 0.1);              /* Default border color - translucent black */
+  --input: transparent;                       /* Input field border - transparent */
+  --input-background: #f3f3f5;               /* Input field background - light gray */
+  --switch-background: #cbced4;              /* Toggle switch background - gray */
+  --ring: oklch(0.708 0 0);                  /* Focus ring color - medium gray */
+  
+  /* === CHART COLORS (for data visualization) === */
+  --chart-1: oklch(0.646 0.222 41.116);      /* Chart color 1 - orange */
+  --chart-2: oklch(0.6 0.118 184.704);       /* Chart color 2 - teal */
+  --chart-3: oklch(0.398 0.07 227.392);      /* Chart color 3 - blue */
+  --chart-4: oklch(0.828 0.189 84.429);      /* Chart color 4 - yellow-green */
+  --chart-5: oklch(0.769 0.188 70.08);       /* Chart color 5 - yellow */
+  
+  /* === BORDER RADIUS === */
+  --radius: 0.625rem;                         /* Base border radius - 10px */
+  
+  /* === SIDEBAR COLORS === */
+  --sidebar: oklch(0.985 0 0);               /* Sidebar background - very light gray */
+  --sidebar-foreground: oklch(0.145 0 0);    /* Sidebar text - dark gray */
+  --sidebar-primary: #030213;                 /* Sidebar primary color - dark */
+  --sidebar-primary-foreground: oklch(0.985 0 0); /* Text on sidebar primary - light */
+  --sidebar-accent: oklch(0.97 0 0);         /* Sidebar accent background - very light */
+  --sidebar-accent-foreground: oklch(0.205 0 0); /* Sidebar accent text - dark */
+  --sidebar-border: oklch(0.922 0 0);        /* Sidebar border - light gray */
+  --sidebar-ring: oklch(0.708 0 0);          /* Sidebar focus ring - medium gray */
+}
+
+/* ============================================================================
+   DARK THEME - CSS CUSTOM PROPERTIES
+   ============================================================================
+   
+   These variables override the light theme when .dark class is applied.
+   Dark mode is the default theme for this application.
+   ============================================================================ */
+.dark {
+  /* === SURFACE COLORS === */
+  --background: oklch(0.145 0 0);             /* Main background - very dark gray (almost black) */
+  --foreground: oklch(0.985 0 0);             /* Main text - very light gray (almost white) */
+  --card: oklch(0.145 0 0);                   /* Card background - very dark */
+  --card-foreground: oklch(0.985 0 0);        /* Card text - very light */
+  --popover: oklch(0.145 0 0);                /* Popover background - very dark */
+  --popover-foreground: oklch(0.985 0 0);     /* Popover text - very light */
+  
+  /* === PRIMARY COLORS === */
+  --primary: oklch(0.985 0 0);                /* Primary color - very light (reversed from light mode) */
+  --primary-foreground: oklch(0.205 0 0);     /* Primary text - dark */
+  
+  /* === SECONDARY COLORS === */
+  --secondary: oklch(0.269 0 0);              /* Secondary background - dark gray */
+  --secondary-foreground: oklch(0.985 0 0);   /* Secondary text - very light */
+  
+  /* === MUTED COLORS === */
+  --muted: oklch(0.269 0 0);                  /* Muted background - dark gray */
+  --muted-foreground: oklch(0.708 0 0);       /* Muted text - medium gray */
+  
+  /* === ACCENT COLORS === */
+  --accent: oklch(0.269 0 0);                 /* Accent background - dark gray */
+  --accent-foreground: oklch(0.985 0 0);      /* Accent text - very light */
+  
+  /* === DESTRUCTIVE COLORS === */
+  --destructive: oklch(0.396 0.141 25.723);   /* Error color - dark red */
+  --destructive-foreground: oklch(0.637 0.237 25.331); /* Error text - lighter red */
+  
+  /* === BORDER & INPUT COLORS === */
+  --border: oklch(0.269 0 0);                 /* Border color - dark gray */
+  --input: oklch(0.269 0 0);                  /* Input border - dark gray */
+  --ring: oklch(0.439 0 0);                   /* Focus ring - medium-dark gray */
+  
+  /* === FONT WEIGHTS (same as light mode) === */
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  
+  /* === CHART COLORS (adjusted for dark mode) === */
+  --chart-1: oklch(0.488 0.243 264.376);     /* Chart color 1 - purple */
+  --chart-2: oklch(0.696 0.17 162.48);       /* Chart color 2 - cyan */
+  --chart-3: oklch(0.769 0.188 70.08);       /* Chart color 3 - yellow */
+  --chart-4: oklch(0.627 0.265 303.9);       /* Chart color 4 - magenta */
+  --chart-5: oklch(0.645 0.246 16.439);      /* Chart color 5 - orange */
+  
+  /* === SIDEBAR COLORS (dark theme) === */
+  --sidebar: oklch(0.205 0 0);               /* Sidebar background - very dark */
+  --sidebar-foreground: oklch(0.985 0 0);    /* Sidebar text - very light */
+  --sidebar-primary: oklch(0.488 0.243 264.376); /* Sidebar primary - purple */
+  --sidebar-primary-foreground: oklch(0.985 0 0); /* Sidebar primary text - light */
+  --sidebar-accent: oklch(0.269 0 0);        /* Sidebar accent - dark gray */
+  --sidebar-accent-foreground: oklch(0.985 0 0); /* Sidebar accent text - light */
+  --sidebar-border: oklch(0.269 0 0);        /* Sidebar border - dark gray */
+  --sidebar-ring: oklch(0.439 0 0);          /* Sidebar focus ring - medium-dark */
+}
+
+/* ============================================================================
+   THEME INLINE LAYER - TAILWIND INTEGRATION
+   ============================================================================
+   
+   This layer maps CSS custom properties to Tailwind's color system.
+   It allows using colors like bg-background, text-foreground, etc.
+   The @theme inline directive tells Tailwind to use these variables.
+   ============================================================================ */
+@theme inline {
+  /* Map all color variables to Tailwind color classes */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  
+  /* Border radius variants */
+  --radius-sm: calc(var(--radius) - 4px);    /* Small radius: 6px */
+  --radius-md: calc(var(--radius) - 2px);    /* Medium radius: 8px */
+  --radius-lg: var(--radius);                 /* Large radius: 10px */
+  --radius-xl: calc(var(--radius) + 4px);    /* Extra large radius: 14px */
+  
+  /* Sidebar color mapping */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* ============================================================================
+   BASE LAYER - ELEMENT DEFAULTS
+   ============================================================================
+   
+   Sets default styles for all elements.
+   These styles apply universally across the entire application.
+   ============================================================================ */
+@layer base {
+  /* 
+   * Apply default border and outline colors to all elements
+   * border-border: Uses the --border color variable
+   * outline-ring/50: Uses --ring color at 50% opacity for focus outlines
+   */
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  /* 
+   * Body element defaults
+   * bg-background: Uses the --background color (white/dark based on theme)
+   * text-foreground: Uses the --foreground color (dark/light based on theme)
+   */
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ============================================================================
+   TYPOGRAPHY LAYER - HEADING, PARAGRAPH, BUTTON STYLES
+   ============================================================================
+   
+   Defines default font sizes, weights, and line heights for HTML elements.
+   
+   IMPORTANT: These styles only apply to elements that DON'T have a Tailwind
+   text class. If you use text-xl, text-lg, etc., these defaults are skipped.
+   
+   This prevents conflicts between default typography and Tailwind utility classes.
+   ============================================================================ */
+@layer base {
+  /* 
+   * Complex selector breakdown:
+   * :where() - Low specificity wrapper (doesn't increase specificity)
+   * :not(:has([class*=' text-'])) - Excludes elements with descendants having " text-" in class
+   * :not(:has([class^='text-'])) - Excludes elements with descendants having class starting with "text-"
+   * 
+   * This means: Only apply these styles if no child element has a Tailwind text class
+   */
+  :where(:not(:has([class*=' text-']), :not(:has([class^='text-'])))) {
+    /* 
+     * H1 - Main page headings
+     * Font size: 1.5rem (24px at default font-size)
+     * Font weight: Medium (500)
+     * Line height: 1.5 (150% of font size)
+     */
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * H2 - Section headings
+     * Font size: 1.25rem (20px at default font-size)
+     */
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * H3 - Subsection headings
+     * Font size: 1.125rem (18px at default font-size)
+     */
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * H4 - Minor headings
+     * Font size: 1rem (16px at default font-size)
+     */
+    h4 {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * P - Paragraph text (body copy)
+     * Font size: 1rem (16px at default font-size)
+     * Font weight: Normal (400)
+     */
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+
+    /* 
+     * Label - Form field labels
+     * Font size: 1rem (16px at default font-size)
+     * Font weight: Medium (500) - slightly bolder for visibility
+     */
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * Button - Button elements
+     * Font size: 1rem (16px at default font-size)
+     * Font weight: Medium (500) - makes button text stand out
+     */
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    /* 
+     * Input - Text input fields
+     * Font size: 1rem (16px at default font-size)
+     * Font weight: Normal (400)
+     * 
+     * Note: 16px minimum prevents iOS Safari from zooming in on focus
+     */
+    input {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+/* ============================================================================
+   HTML ROOT FONT SIZE
+   ============================================================================
+   
+   Sets the base font size for the entire document.
+   All rem values are calculated relative to this.
+   
+   Can be overridden by accessibility settings in App.tsx:
+   - Small: 14px
+   - Medium: 16px (default)
+   - Large: 18px
+   - Extra Large: 20px
+   ============================================================================ */
+html {
+  font-size: var(--font-size);
+}

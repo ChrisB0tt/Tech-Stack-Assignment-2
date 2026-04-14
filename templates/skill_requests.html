@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Requests | Skill Swap Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('home') }}" class="text-2xl font-bold text-blue-600">
+                        <i class="fas fa-exchange-alt mr-2"></i>Skill Swap Hub
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    {% if user %}
+                    <a href="{{ url_for('timeline') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-stream mr-1"></i>Timeline
+                    </a>
+                    <a href="{{ url_for('skill_requests') }}" class="text-blue-600 border-b-2 border-blue-600 px-3 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-lightbulb mr-1"></i>Skill Requests
+                    </a>
+                    <div class="relative">
+                        <img src="{{ url_for('static', filename=user.profile_photo or 'uploads/placeholder.png') }}" 
+                             alt="{{ user.username }}" 
+                             class="h-8 w-8 rounded-full cursor-pointer hover:ring-2 hover:ring-blue-500"
+                             onclick="toggleDropdown()">
+                        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                            <a href="{{ url_for('profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-user mr-2"></i>Profile
+                            </a>
+                            <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <a href="{{ url_for('login') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-sign-in-alt mr-1"></i>Login
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mx-auto px-4 mt-4">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} bg-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'blue' }}-100 border border-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'blue' }}-400 text-{{ 'green' if category == 'success' else 'red' if category == 'error' else 'blue' }}-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <span class="block sm:inline">{{ message }}</span>
+                        <button type="button" class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.style.display='none'">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                    <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>Community Skill Requests
+                </h1>
+                <p class="text-gray-600">Vote for skills you'd like to see resources for</p>
+            </div>
+            {% if user %}
+            <a href="{{ url_for('request_skill') }}" 
+               class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200">
+                <i class="fas fa-plus mr-2"></i>Request a Skill
+            </a>
+            {% endif %}
+        </div>
+
+        {% if requests %}
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {% for request in requests %}
+                    <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="inline-block bg-{{ 'blue' if request.category == 'Programming' else 'purple' if request.category == 'Design' else 'green' if request.category == 'Music' else 'yellow' if request.category == 'Photography' else 'red' if request.category == 'Languages' else 'orange' if request.category == 'Cooking' else 'pink' if request.category == 'Fitness' else 'indigo' if request.category == 'AI Tools' else 'gray' }}-100 text-{{ 'blue' if request.category == 'Programming' else 'purple' if request.category == 'Design' else 'green' if request.category == 'Music' else 'yellow' if request.category == 'Photography' else 'red' if request.category == 'Languages' else 'orange' if request.category == 'Cooking' else 'pink' if request.category == 'Fitness' else 'indigo' if request.category == 'AI Tools' else 'gray' }}-800 text-xs px-2 py-1 rounded-full">
+                                    {{ request.category }}
+                                </span>
+                                <div class="flex items-center text-yellow-500">
+                                    <i class="fas fa-fire mr-1"></i>
+                                    <span class="font-semibold">{{ request.votes }}</span>
+                                </div>
+                            </div>
+                            
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">{{ request.title }}</h3>
+                            <p class="text-gray-600 mb-4 line-clamp-3">{{ request.description }}</p>
+                            
+                            <div class="flex items-center mb-4 text-sm text-gray-500">
+                                <i class="fas fa-user mr-2"></i>
+                                <span>Requested by {{ request.requester }}</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm text-gray-500">
+                                    <i class="fas fa-calendar mr-1"></i>
+                                    {{ request.created_at.strftime('%B %d, %Y') }}
+                                </div>
+                                
+                                {% if user %}
+                                    <form method="POST" action="{{ url_for('vote_skill_request', request_id=request._id) }}" class="inline">
+                                        <button type="submit" 
+                                                class="px-4 py-2 {{ 'bg-gray-300 cursor-not-allowed' if user.username in request.voters else 'bg-green-500 hover:bg-green-600' }} text-white font-medium rounded-md transition duration-200"
+                                                {% if user.username in request.voters %}disabled{% endif %}>
+                                            {% if user.username in request.voters %}
+                                                <i class="fas fa-check mr-2"></i>Voted
+                                            {% else %}
+                                                <i class="fas fa-thumbs-up mr-2"></i>Vote
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <i class="fas fa-lightbulb text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-xl font-semibold text-gray-700 mb-2">No skill requests yet</h3>
+                <p class="text-gray-500 mb-6">Be the first to request a skill you'd like to learn!</p>
+                {% if user %}
+                <a href="{{ url_for('request_skill') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200">
+                    <i class="fas fa-plus mr-2"></i>Request a Skill
+                </a>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200">
+                    <i class="fas fa-sign-in-alt mr-2"></i>Login to Request
+                </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </main>
+
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('userDropdown');
+            const button = event.target.closest('img[onclick="toggleDropdown()"]');
+            
+            if (!button && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

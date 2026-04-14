@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Skill Swap Hub</title>
+    <title>Register | Skill Swap Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -61,10 +61,10 @@
             <!-- Logo Section -->
             <div class="text-center mb-8">
                 <div class="inline-flex items-center justify-center w-20 h-20 rounded-full glass-morphism mb-4">
-                    <i class="fas fa-exchange-alt text-3xl text-white"></i>
+                    <i class="fas fa-user-plus text-3xl text-white"></i>
                 </div>
-                <h1 class="text-3xl font-bold text-white mb-2">Skill Swap Hub</h1>
-                <p class="text-gray-200">Welcome back! Please login to your account.</p>
+                <h1 class="text-3xl font-bold text-white mb-2">Join Skill Swap Hub</h1>
+                <p class="text-gray-200">Create your account and start sharing knowledge!</p>
             </div>
 
             <!-- Flash Messages -->
@@ -80,9 +80,9 @@
                 {% endif %}
             {% endwith %}
 
-            <!-- Login Form -->
+            <!-- Registration Form -->
             <div class="glass-morphism rounded-2xl p-8 shadow-2xl">
-                <form method="POST" action="{{ url_for('login') }}" class="space-y-6">
+                <form method="POST" action="{{ url_for('register') }}" class="space-y-6" enctype="multipart/form-data">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-200 mb-2">
                             Username <span class="text-red-400">*</span>
@@ -92,7 +92,19 @@
                                name="username" 
                                required
                                class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all"
-                               placeholder="Enter your username">
+                               placeholder="Choose a unique username">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-200 mb-2">
+                            Email <span class="text-red-400">*</span>
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               required
+                               class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all"
+                               placeholder="your@email.com">
                     </div>
 
                     <div>
@@ -104,22 +116,60 @@
                                name="password" 
                                required
                                class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all"
-                               placeholder="Enter your password">
+                               placeholder="Create a strong password">
+                    </div>
+
+                    <div>
+                        <label for="bio" class="block text-sm font-medium text-gray-200 mb-2">
+                            Bio
+                        </label>
+                        <textarea id="bio" 
+                                  name="bio" 
+                                  rows="3"
+                                  class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all resize-none"
+                                  placeholder="Tell us about yourself and your interests..."></textarea>
+                    </div>
+
+                    <div>
+                        <label for="hobbies" class="block text-sm font-medium text-gray-200 mb-2">
+                            Hobbies & Skills
+                        </label>
+                        <input type="text" 
+                               id="hobbies" 
+                               name="hobbies" 
+                               class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all"
+                               placeholder="e.g., Python, Design, Photography, Cooking">
+                    </div>
+
+                    <div>
+                        <label for="profile_photo" class="block text-sm font-medium text-gray-200 mb-2">
+                            Profile Photo
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="file" 
+                                   id="profile_photo" 
+                                   name="profile_photo" 
+                                   accept="image/png,image/jpeg,image/jpg,image/gif"
+                                   class="glass-input w-full px-4 py-3 rounded-xl focus:outline-none transition-all file:mr-4 file:py-2">
+                            <div id="photo-preview" class="w-16 h-16 rounded-full glass-morphism flex items-center justify-center">
+                                <i class="fas fa-camera text-gray-300"></i>
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" 
                             class="gradient-button w-full py-3 px-4 rounded-xl text-white font-semibold shadow-lg">
-                        <i class="fas fa-sign-in-alt mr-2"></i>Login
+                        <i class="fas fa-user-plus mr-2"></i>Create Account
                     </button>
                 </form>
 
-                <!-- Register Link -->
+                <!-- Login Link -->
                 <div class="mt-6 text-center">
                     <p class="text-gray-200">
-                        Don't have an account? 
-                        <a href="{{ url_for('register') }}" 
+                        Already have an account? 
+                        <a href="{{ url_for('login') }}" 
                            class="text-cyan-300 hover:text-cyan-200 font-semibold transition-colors">
-                            Sign up here
+                            Login here
                         </a>
                     </p>
                 </div>
@@ -136,9 +186,23 @@
     </div>
 
     <script>
-        // Add some interactive effects
+        // Photo preview functionality
+        document.getElementById('profile_photo').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('photo-preview');
+            
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover rounded-full">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Add interactive effects
         document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input');
+            const inputs = document.querySelectorAll('input, textarea');
             inputs.forEach(input => {
                 input.addEventListener('focus', function() {
                     this.parentElement.style.transform = 'scale(1.02)';

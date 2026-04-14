@@ -1,21 +1,52 @@
-version: "3.9"
+# =============================================================================
+# Skill Swap Hub - Docker Compose Configuration
+# =============================================================================
+# This file orchestrates the application and database services
+# Provides easy deployment with a single command
+# =============================================================================
+
+version: '3.8'
 
 services:
-  web:
+  # Flask Application Service
+  app:
     build: .
+    container_name: skill_swap_hub_app
     ports:
       - "5000:5000"
-    env_file:
-      - .env
+    environment:
+      - FLASK_ENV=production
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME}
+    volumes:
+      - ./static/uploads:/app/static/uploads
     depends_on:
-      - mongo
+      - db
+    restart: unless-stopped
+    networks:
+      - skill_swap_network
 
-  mongo:
-    image: mongo:7
+  # MongoDB Service (for local development)
+  db:
+    image: mongo:6.0
+    container_name: skill_swap_hub_db
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
     volumes:
-      - mongo_data:/data/db
+      - mongodb_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    restart: unless-stopped
+    networks:
+      - skill_swap_network
 
 volumes:
-  mongo_data:
+  mongodb_data:
+    driver: local
+
+networks:
+  skill_swap_network:
+    driver: bridge
