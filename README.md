@@ -124,26 +124,26 @@ If the connection fails, check:
 <!-- Tick the features you have completed by changing [ ] to [x] -->
 
 ### Core Features (MVP)
-- [ ] User registration with username, email, and password
-- [ ] Password hashing using Werkzeug
-- [ ] User login with credential verification
-- [ ] Session management (logged-in state)
-- [ ] User logout
-- [ ] Profile page displaying user details
-- [ ] Profile editing (bio, hobbies, email)
-- [ ] Profile photo upload
-- [ ] Resource posting form (title, link, description, category)
-- [ ] Timeline displaying all shared resources from the database
+- [x] User registration with username, email, and password
+- [x] Password hashing using Werkzeug
+- [x] User login with credential verification
+- [x] Session management (logged-in state)
+- [x] User logout
+- [x] Profile page displaying user details
+- [x] Profile editing (bio, hobbies, email)
+- [x] Profile photo upload
+- [x] Resource posting form (title, link, description, category)
+- [x] Timeline displaying all shared resources from the database
 
 ### Extended Features (50%)
-- [ ] Category filtering on the timeline
-- [ ] Keyword search across titles and descriptions
-- [ ] Server-side validation for all mandatory fields
-- [ ] Custom 404 error page
-- [ ] Custom 500 error page
-- [ ] Timestamps displayed on resource cards
-- [ ] Database seeding script for testing
-- [ ] User's posted resources shown on their profile page
+- [x] Category filtering on the timeline
+- [x] Keyword search across titles and descriptions
+- [x] Server-side validation for all mandatory fields
+- [x] Custom 404 error page
+- [x] Custom 500 error page
+- [x] Timestamps displayed on resource cards
+- [x] Database seeding script for testing
+- [x] User's posted resources shown on their profile page
 
 ---
 
@@ -192,7 +192,7 @@ This project uses MongoDB (NoSQL). The database contains two collections:
 
 MongoDB was chosen as the database solution for this project as it is flexible and scalable. It also has a strong developer community, so if users are struggling, they can find precious resources for finding answers to questions and getting support (Raza, 2023).
 The Community Skill Swap Hub stores data such as user profiles, hobbies and comments, which do not follow a fixed structure. With MongoDB's document-based model, it can allow these entities to be stored as JSON-like documents, which makes it easier to add, remove or modify these fields during development without any complex schema migrations.
-A relational database, such as MySQL, was considered; it would require predefined tables and relationships, which could limit the flexibility during iterative development.
+A relational database, such as MySQL, was considered; it would require predefined tables and relationships, which could limit the flexibility during iterative development. Another issue is that Troubleshooting performance and query errors sometimes requires deeper knowledge (GeeksforGeeks, 2022). Which could increase the time the application could be finished
 
 ---
 
@@ -248,7 +248,7 @@ Any user data stored in the MongoDB database cannot be accessed publicly and is 
 
 ### Data Protection (Password Hashing and Legal necessity)
 User authentication data is protected through the implementation of password hashing, which ensures that passwords are never stored in plain text. During user registration, passwords are processed using Werkzeug's generate_password_hash() function before they are saved to the MongoDB database. When a user logs in, the password is checked using check_password_hash(), which allows authentication without exposing the original password.
-This approach reduces the risk of personal data being compromised if the database gets breached, as hashed passwords cannot be easily reversed. It also ensures that the developers cannot view the user passwords, which supports confidentiality.
+This approach reduces the risk of personal data being compromised if the database gets breached, as hashed passwords cannot be easily reversed. It also ensures that the developers cannot view the user passwords, which supports confidentiality. Hashing ensures that passwords are stored in a secure, non-human-readable format, reducing the risk of data breaches (Lukic, 2024).
 With GDPR, it doesn't discuss technical implementations such as password hashing. However, Article 32 of GDPR says that the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk (GDPR, 2018).
 By implementing password hashing with secure configuration, such as environment variables, the application follows GDPR principles while aligning with industry best practices for user data protection.
 
@@ -351,7 +351,7 @@ GitHub was used to commit any changes or development to the project. It is a ver
 ---
 
 ## Visual DMD Representation
-This Data Model Diagram represents the structure of the MongoDB database used in the Community Skill Swap Hub. It consists of two collections, users and resources. A relationship exists between users and resources, where a single user may post multiple resources. <br>
+This Data Model Diagram represents the structure of the MongoDB database used in the Community Skill Swap Hub. It consists of two collections, users and resources. A relationship exists between users and resources, where a single user may post multiple resources. DMD models shows what goes where and how and explains how exactly something operates and what happens in the process. (Bilyk, 2022) <br>
 ![DMD diagram](<DMD diagram.png>)
 
 ---
@@ -362,9 +362,11 @@ This Data Model Diagram represents the structure of the MongoDB database used in
 3. GitHub. (2024). About GitHub and Git. GitHub Docs. https://docs.github.com/en/get-started/start-your-journey/about-github-and-git
 4. Raza, A. (2023, January 2). 10 Reasons Why MongoDB is the Best NoSQL Database - Ahsan Raza - Medium. Medium; Medium. https://medium.com/@ahsancommits/10-reasons-why-mongodb-is-the-best-nosql-database-17ad10e4319f
 5. GDPR. (2018). Art. 32 GDPR – Security of processing | General Data Protection Regulation (GDPR). General Data Protection Regulation (GDPR). https://gdpr-info.eu/art-32-gdpr/
-6. 
-7. 
-8. 
+6. Bilyk, V. (2022, November 26). Data Flow Diagrams Explained ≡ Блог ArtofBA. ArtofBA. https://www.artofba.com/uk/post/data-flow-diagrams-dfd-explained-1
+7. Lukic, D. (2024, June 25). Hash, salt and verify passwords - Node, Python, Go and Java. Supertokens.com. https://supertokens.com/blog/password-hashing-salting
+8. GeeksforGeeks. (2022, November 7). Disadvantages of Using MySQL. GeeksforGeeks. https://www.geeksforgeeks.org/sql/disadvantages-of-using-mysql/
+
+‌
 
 ---
 
