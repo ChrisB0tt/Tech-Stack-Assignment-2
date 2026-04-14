@@ -101,18 +101,21 @@ Follow these steps to set up the project on your own machine.
 
 ## Replication Guide
 
-To replicate this project exactly on another machine:
+To replicate this project exactly on another device:
 
 1. Follow the Installation Instructions above.
 2. Ensure your MongoDB Atlas cluster is on the **M0 Free Tier**.
 3. In the Atlas dashboard, go to **Network Access** and add your IP address (or `0.0.0.0/0` for development).
-4. Run `seed_data.py` to populate the database with identical test data.
-5. The application should now behave identically to the original development environment.
+4. Update the 'MONGO_URI' value in the '.env' file with your Atlas connection string.
+5. Run `seed_data.py` to populate the database with identical test data.
+6. The application should now behave identically to the original development environment. To run the application:
+```bash
+python app.py
+```
 
 If the connection fails, check:
 - Your IP is whitelisted in MongoDB Atlas
 - The username and password in your connection string are correct
-- The `dnspython` package is installed (it is in `requirements.txt`)
 
 ---
 
@@ -186,9 +189,9 @@ This project uses MongoDB (NoSQL). The database contains two collections:
 | created_at | DateTime | Timestamp of when the resource was posted |
 
 ### Why NoSQL (MongoDB)?
-
-[Explain in your own words why you chose MongoDB over a relational database like MySQL. Consider: the flexibility of document structure, how well it suits a platform where data shapes may evolve, and how it handles the kind of data your application stores.]
-
+MongoDB was chosen as the database solution for this project as it is flexible and scalable. It also has a strong developer community, so if users are struggling they can gind precious resources for chancing answers to questions and getting support (Raza, 2023).
+The Community Skill Swap Hub stores data such as user profiles, hobbies and comments, which do not follow a fixeed structure. With MongoDB's document-based model, it can allow these entities to be stored as JSON-like document, which makes it easier to add, remove or modify these fields during development without any complex schema migrations.
+A relational database such as MySQL was considered, however it would required predefined tables and relationships, which could limit the flexiblity during iterative development.
 ---
 
 ## Framework Comparison
@@ -196,12 +199,12 @@ This project uses MongoDB (NoSQL). The database contains two collections:
 | Aspect | Flask | Django |
 |---|---|---|
 | Type | Micro-framework | Full-stack framework |
-| Learning curve | [Your assessment] | [Your assessment] |
-| Built-in features | [Your assessment] | [Your assessment] |
-| Flexibility | [Your assessment] | [Your assessment] |
-| Best suited for | [Your assessment] | [Your assessment] |
+| Learning curve | Relative gentle learning curve. Concepts such as routing and request handling are easy to understand | Steeper learining curve, due to many built-in features |
+| Built-in features | Minimal features. Authentication and database handling are added | Extensive built-in features, which include authentication and form handling |
+| Flexibility | Highly flexible, developers can choose which library and extention to use | Less flexible, developers have to follow a set structure |
+| Best suited for | Small to medium applications and prototypes | Large, complex applications which require rapid development. |
 
-[Write a paragraph (4 to 6 sentences) justifying why Flask was the most effective choice for this project. Consider its simplicity for a first project, the control it gives you over which libraries to use, and how its lightweight nature suited the scale of this application.]
+Flask was picked for this project because of its lightweight and minimalist design. Since its lightweight, it leads to faster startup times, reduces memory footprint and it is easier to deploy compared to Djago (Zyneto Global Technologies, 2026). Since because of its micro-framework apporuyach, it can provide full control over routing, authentication and database interactions, which allows backend concpets to be implemented instead of it being hidden behing a framework abstraction. Flask also allows applications to be integrated with MongoDB without any rigid project structure. With this Flask can support the Community Skill Swap Hub, in creating a flexible and funcitional platform.
 
 ---
 
@@ -262,6 +265,33 @@ Despite this, i believe the navigation could be further improved. Such as adding
 | Collecting unnecessary personal data | Low | Medium | Apply data minimasation by only collecing required personal data | Yes|
 | Incosistent data strucutre | Low | Medium | Using flexible MongoDB schema | Yes|
 
+## Applied Risk Assessment
+
+### Invalid or Malicious User input
+Users can submit incomplete, or intentionally harmful inputs, which could lead to data corruption or unexpected application behaviour<br>
+### Mitigation<br>
+to Mitigate this, a server side validation is implemented for all forms. All required fields are checked before they are inserted into the database, and constraints like the maximum or minimum lengths are enforced. Any erros are shown as error messages.<br>
+### Evidence in Code<br>
+Validation logic is present in routes handling user registration using flash() messages.
+<br><br>
+
+### Unsafe File Uploads
+Allowing users to upload files could introduce the risk of malicious or unsupported files types being stored in the server<br>
+### Mitigation<br>
+Uplods are validated by an extensoin before being saved<br>
+### Evidence in Code<br>
+The function allowed_file() is used to restric uploads and only allows the approved image formats
+
+<br><br>
+
+### Data Leakage 
+Storing user passwords insecurely can cause serious secruity and legal risk, and a potential breach could happen<br>
+### Mitigation<br>
+Passwods are neveer stored in plain text. Instead they are hashed using Werkzeug's password hashing before its saved in MongoDB.<br>
+### Evidence in Code<br>
+The application uses generate_password_hash() and check_password_hash() for authentication.
+
+
 ---
 
 ## Development Timeline (Gantt Chart)
@@ -297,20 +327,15 @@ Github was used to commit any changes or development to the project. It is a ver
   ‌
 2. MongoDB. (2024). Why Use MongoDB And When To Use It? MongoDB. https://www.mongodb.com/resources/products/fundamentals/why-use-mongodb
 3. GitHub. (2024). About GitHub and Git. GitHub Docs. https://docs.github.com/en/get-started/start-your-journey/about-github-and-git
-4. Grinberg, M. (2018). *Flask web development: Developing web applications with Python* (2nd ed.). O'Reilly Media.
-5. Mozilla Developer Network. (2024). *HTTP request methods*. https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
-6. Information Commissioner's Office. (2024). *Guide to the UK General Data Protection Regulation*. https://ico.org.uk/for-organisations/guide-to-data-protection/
-7. OWASP Foundation. (2024). *OWASP Top Ten*. https://owasp.org/www-project-top-ten/
-8. [Add more references as needed]
+4. Raza, A. (2023, January 2). 10 Reasons Why MongoDB is the Best NoSQL Database - Ahsan Raza - Medium. Medium; Medium. https://medium.com/@ahsancommits/10-reasons-why-mongodb-is-the-best-nosql-database-17ad10e4319f
+
+5. 
+6. 
+7. 
+8. 
 
 ---
 
 ## Generative AI Disclosure
 
-<!-- Choose ONE of the following statements and delete the other. -->
-
-This assignment used generative AI in the following ways for the purposes of completing the assignment: [choose from: brainstorming, research, planning, feedback, editing].
-
-OR
-
-This assignment did not use generative AI for the purposes of completing the assignment.
+This assignment used generative AI in the following ways for the purposes of completing the assignment: [choose from: brainstorming, research, planning]
